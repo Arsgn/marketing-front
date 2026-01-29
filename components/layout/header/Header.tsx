@@ -12,7 +12,7 @@ export const Header: FC = () => {
           <nav>
             <Link href="/">Главная</Link>
             <Link href="">О нас</Link>
-            <Link href="">Курсы</Link>
+            <Link href="/marketing">Курсы</Link>
             <Link href="">Контакты</Link>
           </nav>
           <div className={scss.Buttons}>

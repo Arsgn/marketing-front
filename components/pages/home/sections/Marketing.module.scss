@@ -1,0 +1,217 @@
+.Marketing {
+  font-family: "Rubik", sans-serif;
+  padding-block: 30px;
+
+  .head {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    height: 130px;
+    justify-content: space-between;
+
+    h1 {
+      font-size: 50px;
+      font-weight: 700;
+      font-family: "Rubik", sans-serif;
+      color: #0b132a;
+    }
+    .hp {
+      color: #4f5665;
+      font-weight: 400;
+      line-height: 28px;
+      width: 555px;
+    }
+  }
+
+  .block {
+    display: flex;
+    flex-direction: column;
+    padding: 50px 0 150px 0;
+
+    p {
+      line-height: 25px;
+      padding-block: 19px;
+    }
+
+    .box {
+      display: flex;
+      gap: 35px;
+
+      .text {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+
+        h2 {
+          color: #252b42;
+          font-size: 36px;
+          font-weight: 700;
+          font-family: "Rubik", sans-serif;
+        }
+
+        p {
+          line-height: 25px;
+          color: #000000;
+          span {
+            font-weight: 600;
+          }
+        }
+      }
+    }
+  }
+
+  .Lesson {
+    width: 100%;
+
+    .theme {
+      border-top: 1px solid #4f566549;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+
+      p {
+        padding: 30px 0 80px 0;
+        font-size: 18px;
+        font-weight: 500;
+      }
+    }
+
+    .video {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+      padding: 0 0 80px 0;
+
+      .blog {
+        position: relative;
+        border-radius: 12px;
+        overflow: hidden;
+        cursor: pointer;
+        transition: transform 0.3s ease;
+
+        &:hover {
+          transform: translateY(-4px);
+        }
+
+        background-size: cover;
+        background-position: center;
+        height: 200px;
+
+        &::before {
+          content: "";
+          position: absolute;
+          top: 0;
+          left: 0;
+          right: 0;
+          bottom: 0;
+          background: linear-gradient(
+            180deg,
+            transparent 0%,
+            rgba(0, 0, 0, 0.7) 100%
+          );
+        }
+
+        .first {
+          position: absolute;
+          top: 12px;
+          left: 12px;
+          color: white;
+          font-size: 12px;
+          margin: 0;
+          z-index: 1;
+          opacity: 0.9;
+        }
+
+        p:last-child {
+          position: absolute;
+          bottom: 16px;
+          left: 16px;
+          right: 16px;
+          color: white;
+          font-size: 16px;
+          font-weight: 500;
+          margin: 0;
+          z-index: 1;
+        }
+      }
+    }
+
+    .lessonEnd {
+      padding-block: 50px;
+      gap: 30px;
+      display: flex;
+      flex-direction: column;
+
+      p {
+        list-style: 25px;
+        border-top: 1px solid #4f566549;
+        font-weight: 500;
+        padding: 25px 0 0 0;
+        cursor: pointer;
+      }
+      p:hover{
+        color: #23a6f0;
+        transition: 0.2s;
+      }
+    }
+  }
+
+  .Join {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 20px;
+    padding-top: 130px;
+    margin-bottom: -60px;
+
+    h1 {
+      font-size: 50px;
+      font-weight: 700;
+      font-family: "Rubik", sans-serif;
+      color: #0b132a;
+    }
+    p {
+      color: #4f5665;
+      font-weight: 400;
+      line-height: 28px;
+      width: 555px;
+    }
+
+    .email {
+      padding: 30px 0 0 0;
+      display: flex;
+      width: 80%;
+
+      input {
+        width: 100%;
+        border: 1px solid #4f5665c4;
+        padding: 20px;
+        border-radius: 5px;
+        font-size: 18px;
+        background: white;
+      }
+      &::placeholder {
+        font-size: 18px;
+      }
+
+      button {
+        padding-inline: 25px;
+        color: white;
+        background: #23a6f0;
+        font-family: "Rubik", sans-serif;
+        font-size: 18px;
+        cursor: pointer;
+        border-radius: 5px;
+        margin-left: -5px;
+      }
+      button:hover {
+        transition: 0.2s;
+        color: #23a6f0;
+        background: #dcdcdc;
+      }
+    }
+  }
+}
