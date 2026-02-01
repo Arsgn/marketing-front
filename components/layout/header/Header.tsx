@@ -11,13 +11,13 @@ export const Header: FC = () => {
           <h2>Logo</h2>
           <nav>
             <Link href="/">Главная</Link>
-            <Link href="">О нас</Link>
+            <Link href="/about">О нас</Link>
             <Link href="/marketing">Курсы</Link>
             <Link href="">Контакты</Link>
           </nav>
           <div className={scss.Buttons}>
-          <button className={scss.SignIn}>Войти</button>
-          <button className={scss.Join}>Присоединяйся</button>
+            <button className={scss.SignIn}>Войти</button>
+            <button className={scss.Join}>Присоединяйся</button>
           </div>
         </div>
       </div>
