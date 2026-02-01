@@ -1,0 +1,153 @@
+.SignInPage {
+  display: flex;
+  font-family: "Rubik", sans-serif;
+
+  .Home{
+    display: flex;
+    justify-content: center;
+    padding-block: 30px;
+    width: 100%;
+  }
+
+  .block{
+    display: flex;
+    flex-direction: column;
+    align-items: end;
+    gap: 40px;
+  }
+
+  .blog {
+    width: 520px;
+
+    .box {
+      display: flex;
+      flex-direction: column;
+      align-items: end;
+
+      input {
+        margin-top: 35px;
+        width: 100%;
+        font-size: 20px;
+        border-bottom: 1.53px solid #000000a6;
+        padding-block: 15px;
+      }
+      a {
+        padding-top: 15px;
+        color: #0000008f;
+      }
+      a:hover {
+        transition: 0.2s;
+        color: #23a6f0;
+      }
+    }
+
+    .Buttons {
+      display: flex;
+      flex-direction: column;
+      gap: 25px;
+      padding-block: 40px;
+      align-items: center;
+    }
+  }
+
+  h1 {
+    font-size: 40px;
+    font-family: "Rubik", sans-serif;
+    font-weight: 700;
+    text-align: center;
+  }
+
+ .home {
+  display: flex;
+  font-size: 45px;
+  background: none;
+  margin-right: -50px;
+  cursor: pointer;
+  border: none;
+
+  transition: transform 0.3s ease, color 0.3s ease;
+
+  &:hover {
+    transform: rotate(90deg) scale(1.1);
+    color: #23a6f0;
+  }
+
+  &:active {
+    transform: rotate(90deg) scale(0.95);
+  }
+}
+
+}
+
+.site {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+
+  button {
+    width: 238px;
+    height: 51px;
+    font-size: 17px;
+    border-radius: 8px;
+    border: 0.5px solid #23a6f0;
+    background: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    cursor: pointer;
+  }
+}
+
+.facebook {
+  color: black;
+}
+
+.register {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  button {
+    background: none;
+    color: #00a2ff;
+    font-weight: 500;
+    font-style: 17px;
+  }
+  button:hover {
+    transition: 0.2s;
+    cursor: pointer;
+    color: #000;
+  }
+}
+
+.or {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  justify-content: space-between;
+  text-align: center;
+  font-size: 17px;
+  width: 270px;
+  padding-block: 10px;
+  .line {
+    height: 1.5px;
+    width: 100px;
+    background: #00c8ff;
+  }
+}
+
+.signUp {
+  background: #23a6f0;
+  color: white;
+  font-size: 18px;
+  padding: 15px;
+  border-radius: 10px;
+  width: 100%;
+}
+
+.signUp:hover{
+    transition: 0.2s;
+    color: #00a2ff;
+    cursor: pointer;
+    background: #e4e4e4;
+}
