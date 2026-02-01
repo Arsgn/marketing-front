@@ -2,8 +2,11 @@
 import { FC } from "react";
 import scss from "./Header.module.scss";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 export const Header: FC = () => {
+  const router = useRouter();
+
   return (
     <header className={scss.Header}>
       <div className="container">
@@ -16,7 +19,12 @@ export const Header: FC = () => {
             <Link href="">Контакты</Link>
           </nav>
           <div className={scss.Buttons}>
-            <button className={scss.SignIn}>Войти</button>
+            <button
+              className={scss.SignIn}
+              onClick={() => router.push("/sign-in")}
+            >
+              Ввойти
+            </button>
             <button className={scss.Join}>Присоединяйся</button>
           </div>
         </div>
