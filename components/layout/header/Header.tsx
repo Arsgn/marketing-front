@@ -15,7 +15,7 @@ export const Header: FC = () => {
           <nav>
             <Link href="/">Главная</Link>
             <Link href="/about">О нас</Link>
-            <Link href="/marketing">Курсы</Link>
+            <Link href="/kursy">Курсы</Link>
             <Link href="">Контакты</Link>
           </nav>
           <div className={scss.Buttons}>
