@@ -1,0 +1,180 @@
+.content {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  margin-top: 30px;
+
+  .blocks {
+    border: 1px solid #0000009b;
+    border-radius: 10px;
+    position: relative;
+    width: 1200px;
+    height: 300px;
+    margin-bottom: 30px;
+    .profile {
+      position: absolute;
+      bottom: 25px;
+      left: 20;
+      right: 20;
+
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+
+      .profile2 {
+        display: flex;
+        align-items: flex-end;
+        gap: 2rem;
+
+        h3 {
+          font-family: "Poppins", sans-serif;
+          font-size: 20px;
+          letter-spacing: normal;
+          margin-bottom: 8px;
+        }
+      }
+
+      button {
+        padding: 15px 50px;
+        border-radius: 5px;
+        background: #23a6f0;
+        color: white;
+        font-size: 14px;
+        border: none;
+        cursor: pointer;
+      }
+    }
+  }
+
+  .course {
+    border: 1px solid #0000009b;
+    border-radius: 10px;
+    width: 1200px;
+    padding: 25px;
+    .courseButtons {
+      margin-bottom: 25px;
+      button {
+        padding: 15px 40px;
+        border-radius: 5px;
+        border: 1px solid #0000009b;
+        color: #0000009b;
+        font-size: 14px;
+        cursor: pointer;
+        background: none;
+        margin-right: 25px;
+        &:active {
+          background: #23a6f0;
+          color: white;
+        }
+      }
+    }
+    .courseBlocks {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: flex-start;
+      justify-content: flex-start;
+      gap: 30px;
+
+      .cart {
+        flex: 0 0 210px;
+        border: 1px solid#0000009b;
+        width: 210px;
+        border-radius: 6px;
+        .cartImg {
+          position: relative;
+
+          img {
+            width: 208px;
+            height: 190px;
+            display: block;
+            border-top-left-radius: 6px;
+            border-top-right-radius: 6px;
+          }
+
+          .cartbuttons {
+            position: absolute;
+            top: 0;
+            button {
+              padding: 5px 20px;
+              border-radius: 5px;
+              font-size: 15px;
+              background: red;
+              color: white;
+              margin: 10px;
+              cursor: pointer;
+            }
+            .icon {
+              border-radius: 50%;
+              width: 30px;
+              height: 30px;
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              border: none;
+              margin: 100px 85px;
+              background: white;
+              cursor: pointer;
+
+              &:active {
+                // background: red;
+                color: red;
+              }
+            }
+          }
+        }
+        .description {
+          padding: 15px;
+          width: 208px;
+          height: 190px;
+
+          display: flex;
+          flex-direction: column;
+          gap: 15px;
+
+          h3 {
+            font-size: 14px;
+            letter-spacing: normal;
+            font-family: 'Montserrat',sans-serif;
+          }
+
+          p {
+            letter-spacing: normal;
+            font-size: 10px;
+          }
+
+          .icons {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            font-size: 12px;
+
+            .icon {
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              p {
+                font-size: 8px;
+                margin-left: 5px;
+              }
+            }
+          }
+
+          button {
+            padding: 8px 8px;
+            width: 120px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 3px;
+            border-radius: 20px;
+            border: 1px solid #23a6f0;
+            color: #23a6f0;
+            background: none;
+            font-size: 12px;
+          }
+        }
+      }
+    }
+  }
+}

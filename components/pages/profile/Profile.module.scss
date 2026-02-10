@@ -1,0 +1,67 @@
+.head {
+  width: auto;
+  border-bottom: 1.5px solid #0000007f;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px 90px;
+  .profile {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 25px;
+    .box {
+      border: 1px solid black;
+      border-radius: 5px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 10px;
+      .bell {
+        font-size: 17px;
+        color: black;
+        cursor: pointer;
+      }
+    }
+  }
+}
+
+.blocks {
+  display: flex;
+  .block {
+    width: 270px;
+    height: 88.9vh;
+    border: 1.5px solid #0000007f;
+    .handbook {
+      width: 135px;
+      height: 60%;
+      margin-top: 50px;
+      margin-left: 50px;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      color: #0000009b;
+
+      .profile {
+        display: flex;
+        align-items: center;
+        gap: 15px;
+        font-size: 18px;
+        line-height: 3;
+        font-weight: 400;
+        h3 {
+          letter-spacing: normal;
+          font-family: "Poppins", sans-serif;
+          font-size: 15px;
+        }
+      }
+    }
+  }
+  .main {
+    overflow-y: scroll;
+    scrollbar-width: none;
+    height: 88.9vh;
+    width: 100%;
+  }
+}

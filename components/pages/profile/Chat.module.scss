@@ -1,0 +1,171 @@
+.ChatList {
+  position: absolute;
+
+  .search {
+    position: absolute;
+    margin-top: -60px;
+    margin-left: 50px;
+    border: 1px solid #0000009b;
+    border-radius: 10px;
+    width: 300px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 10px;
+    color: #0000009b;
+    .CiSearch {
+      font-size: 25px;
+      margin-left: 15px;
+    }
+  }
+
+  .chat {
+    border-bottom: 1px solid #00000046;
+    width: 400px;
+    height: auto;
+    display: flex;
+    flex-wrap: wrap;
+
+    .chatCart {
+      width: 400px;
+      height: 80px;
+      padding: 0px 40px 0px 30px;
+      display: flex;
+      border-bottom: 1px solid #0000009b;
+      align-items: center;
+      justify-content: space-between;
+      .Image {
+        width: 60px;
+      }
+      .chatNameBlock {
+        display: flex;
+        align-items: flex-start;
+        justify-content: space-between;
+        width: 250px;
+        .chatName {
+          line-height: 1.5;
+          h3 {
+            font-size: 15px;
+            letter-spacing: normal;
+            font-family: "Poppins", sans-serif;
+          }
+          p {
+            font-size: 13px;
+          }
+        }
+        .chatTime {
+          font-size: 11px;
+        }
+      }
+    }
+  }
+}
+.content {
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+}
+.mainList {
+  border-bottom: 1px solid #0000009b;
+  border-left: 1px solid #0000009b;
+  border-right: 1px solid #0000009b;
+  width: 905px;
+  height: 100%;
+  padding: 15px 30px 15px 20px;
+  .main {
+    overflow-y: scroll;
+    scrollbar-width: none;
+    height: 63vh;
+    width: 100%;
+  }
+  .mainline {
+    border-bottom: 2px solid solid #0000009b;
+  }
+  .mainCart {
+    border-bottom: 1px solid #0000009b;
+    height: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    .mainNameBlock {
+      // border: 1px solid red;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 2px solid solid #0000009b;
+
+      .Image {
+        width: 60px;
+      }
+      .mainName {
+        margin-left: 30px;
+        h3 {
+          font-family: "Poppins", sans-serif;
+          letter-spacing: normal;
+          font-size: 22px;
+          line-height: 30px;
+        }
+      }
+    }
+    .icons {
+      font-size: 25px;
+      color: #23a6f0;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 40px;
+      margin-right: 35px;
+    }
+  }
+}
+
+.smsinp {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+  input {
+    width: 100%;
+    padding: 20px 80px 10px 40px;
+    border-radius: 10px;
+    border: 1px solid #ccc;
+    outline: none;
+    background: #dadada;
+  }
+
+  svg:first-child {
+    position: absolute;
+    left: 20px;
+    color: #ffffff;
+    font-size: 20px;
+    cursor: pointer;
+  }
+
+  svg:nth-of-type(2) {
+    position: absolute;
+    right: 135px;
+    color: #ffffff;
+    font-size: 20px;
+    cursor: pointer;
+  }
+
+  svg:nth-of-type(3) {
+    position: absolute;
+    right: 90px;
+    color: #ffffff;
+    font-size: 25px;
+    cursor: pointer;
+  }
+
+  .buttonIcon {
+    color: white;
+    border: none;
+    background: #23a6f0;
+    border-radius: 30%;
+    font-size: 45px;
+    padding: 10px;
+    cursor: pointer;
+  }
+}
