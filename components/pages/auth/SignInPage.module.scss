@@ -2,18 +2,24 @@
   display: flex;
   font-family: "Rubik", sans-serif;
 
-  .Home{
+  img {
+    width: 800px;
+    height: 100dvh;
+    object-fit: cover;
+  }
+
+  .Home {
     display: flex;
     justify-content: center;
-    padding-block: 30px;
     width: 100%;
   }
 
-  .block{
+  .block {
     display: flex;
     flex-direction: column;
     align-items: end;
     gap: 40px;
+    padding-top: 20px;
   }
 
   .blog {
@@ -39,6 +45,14 @@
         transition: 0.2s;
         color: #23a6f0;
       }
+      span{
+        margin-top: -50px;
+        font-size: 20px;
+        padding-block: 20px;
+        padding-inline: 10px;
+        cursor: pointer;
+      }
+
     }
 
     .Buttons {
@@ -47,6 +61,22 @@
       gap: 25px;
       padding-block: 40px;
       align-items: center;
+
+      .signIn {
+        background: #23a6f0;
+        color: white;
+        font-size: 18px;
+        padding: 15px;
+        width: 100%;
+        cursor: pointer;
+        border-radius: 10px;
+
+        &:hover {
+          transition: 0.2s;
+          color: #00a2ff;
+          background: #e4e4e4;
+        }
+      }
     }
   }
 
@@ -57,26 +87,37 @@
     text-align: center;
   }
 
- .home {
-  display: flex;
-  font-size: 45px;
-  background: none;
-  margin-right: -50px;
-  cursor: pointer;
-  border: none;
+  .home {
+    display: flex;
+    font-size: 45px;
+    background: none;
+    margin-right: -50px;
+    cursor: pointer;
+    border: none;
 
-  transition: transform 0.3s ease, color 0.3s ease;
+    transition:
+      transform 0.3s ease,
+      color 0.3s ease;
 
-  &:hover {
-    transform: rotate(90deg) scale(1.1);
-    color: #23a6f0;
-  }
+    &:hover {
+      transform: rotate(90deg) scale(1.1);
+      color: #23a6f0;
+    }
 
-  &:active {
-    transform: rotate(90deg) scale(0.95);
+    &:active {
+      transform: rotate(90deg) scale(0.95);
+    }
   }
 }
 
+.fit{
+  color: black;
+  cursor: pointer;
+
+  &:hover{
+    transition: 0.2s;
+    color: #23a6f0;
+  }
 }
 
 .site {
@@ -145,9 +186,21 @@
   width: 100%;
 }
 
-.signUp:hover{
+.signUp:hover {
+  transition: 0.2s;
+  color: #00a2ff;
+  cursor: pointer;
+  background: #e4e4e4;
+}
+
+.forgot {
+  color: #5c5c5c;
+  font-size: 17px;
+  background: none;
+  cursor: pointer;
+
+  .forgot:hover {
     transition: 0.2s;
-    color: #00a2ff;
-    cursor: pointer;
-    background: #e4e4e4;
+    color: #23a6f0;
+  }
 }
