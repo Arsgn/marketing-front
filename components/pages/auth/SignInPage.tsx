@@ -6,10 +6,11 @@ import { useRouter } from "next/navigation";
 import { GoX } from "react-icons/go";
 import { FcGoogle } from "react-icons/fc";
 import { FaFacebookF } from "react-icons/fa";
+import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
 
 import { useSignIn } from "@/api/user";
 import { useAuthStore } from "@/store/auth.store";
-import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
+import { token } from "@/api";
 
 const SignInPage: FC = () => {
   const router = useRouter();
@@ -22,19 +23,41 @@ const SignInPage: FC = () => {
     password: "",
   });
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
+const handleSubmit = (e: React.FormEvent) => {
+  e.preventDefault();
 
-    signIn.mutate(formData, {
-      onSuccess: (res) => {
-        setUser(res.data.user); // 🔥 важно
-        router.push("/");
-      },
-      onError: (error: any) => {
-        alert(error.response?.data?.error || "Ошибка входа");
-      },
-    });
-  };
+  signIn.mutate(formData, {
+    onSuccess: (res) => {
+      console.log("=== API Response ===");
+      console.log("Full response:", res);
+      console.log("res.data:", res.data);
+      console.log("res.data.session:", res.data.session);
+      console.log("res.data.user:", res.data.user);
+      
+      // Сохраните токены
+      if (res.data.session) {
+        console.log("Saving tokens...");
+        token.set(res.data.session.access_token);
+        token.setRefresh(res.data.session.refresh_token);
+        console.log("access_token:", token.get());
+        console.log("refresh_token:", token.getRefresh());
+      }
+      
+      console.log("Setting user...");
+      setUser(res.data.user);
+      
+      console.log("=== localStorage ===");
+      console.log("access_token:", localStorage.getItem("access_token"));
+      console.log("refresh_token:", localStorage.getItem("refresh_token"));
+      console.log("auth-storage:", localStorage.getItem("auth-storage"));
+      
+      router.push("/");
+    },
+    onError: (error: any) => {
+      alert(error.response?.data?.error || "Ошибка входа");
+    },
+  });
+};
 
   return (
     <section className={scss.SignInPage}>

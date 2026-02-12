@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import styles from "./SignUpPage.module.scss";
 import { useSignUp } from "@/api/user";
 import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
+import { token } from "@/api";
 
 const SignUpPage = () => {
   const router = useRouter();
@@ -16,21 +17,29 @@ const SignUpPage = () => {
   const [agreed, setAgreed] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
 
-  const handleSubmit = () => {
-    if (!agreed) return alert("Agree with terms");
+const handleSubmit = () => {
+  if (!agreed) return alert("Agree with terms");
 
-    mutate(
-      { email, password, name },
-      {
-        onSuccess: () => {
-          router.push("/");
-        },
-        onError: (e) => {
-          alert(e.message);
-        },
-      }
-    );
-  };
+  mutate(
+    { email, password, name },
+    {
+      onSuccess: (res) => {
+        console.log("SignUp Response:", res.data);
+        
+     
+        if (res.data?.session) {
+          token.set(res.data.session.access_token);
+          token.setRefresh(res.data.session.refresh_token);
+        }
+        
+        router.push("/");
+      },
+      onError: (e) => {
+        alert(e.message);
+      },
+    }
+  );
+};
 
   return (
     <div className={styles.SignUpPage}>

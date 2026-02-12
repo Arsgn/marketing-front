@@ -1,0 +1,46 @@
+.home{
+    color: black;
+    width: 1130px;
+
+    .block{
+        display: flex;
+        align-items: end;
+        justify-content: space-between;
+        padding-inline: 25px;
+        margin-top: -65px;
+        border: 0.5px solid black;
+        border-radius: 7px;
+        padding-bottom: 30px;
+
+        
+
+        .box{
+            display: flex;
+            align-items: end;
+
+            .avatar{
+                width: 160px;
+                height: 160px;
+                border-radius: 50%;
+            }
+
+            h1{
+                padding-bottom: 20px;
+            }
+        }
+        .edit{
+            padding: 15px 20px;
+            background: #2ea9f0;
+            color: white;
+            border-radius: 5px;
+            cursor: pointer;
+
+            &:hover{
+                transition: 0.2s;
+                background: rgb(222, 222, 222);
+                color: #23a6f0;
+            }
+        }
+    }
+}
+
