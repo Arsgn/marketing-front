@@ -5,8 +5,9 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useAuthStore } from "@/store/auth.store";
 import { useSignOut } from "@/api/user";
+import { token } from "@/api";
 
-export const Header: FC = () => {
+const Header: FC = () => {
   const router = useRouter();
   const { isAuth, user, clearUser } = useAuthStore();
   const signOut = useSignOut();
@@ -15,6 +16,7 @@ export const Header: FC = () => {
     signOut.mutate(undefined, {
       onSuccess: () => {
         clearUser();
+        token.remove();
         router.push("/");
       },
     });
@@ -30,7 +32,7 @@ export const Header: FC = () => {
             <Link href="/">Главная</Link>
             <Link href="/about">О нас</Link>
             <Link href="/kursy">Курсы</Link>
-            <Link href="/contacts">Контакты</Link>
+            <Link href="/profile">Контакты</Link>
           </nav>
 
           {!isAuth ? (
@@ -61,3 +63,5 @@ export const Header: FC = () => {
     </header>
   );
 };
+
+export default Header;

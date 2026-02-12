@@ -1,7 +1,6 @@
 "use client";
-
+import AuthProvider from "@/providers/AuthProvider";
 import ReactQueryProvider from "@/providers/ReactQueryProvider";
-import { AuthProvider } from "@/providers/AuthProvider";
 import { FC, ReactNode } from "react";
 
 interface ILayoutClientProps {
