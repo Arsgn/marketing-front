@@ -8,47 +8,54 @@ const AuthProvider: FC<{ children: ReactNode }> = ({ children }) => {
   const [isChecking, setIsChecking] = useState(true);
 
   useEffect(() => {
-    console.log("=== AuthProvider useEffect ===");
-    console.log("isAuth from store:", isAuth);
-    console.log("user from store:", user);
-    console.log("access_token:", token.get());
-    console.log("refresh_token:", token.getRefresh());
-    
-    const accessToken = token.get();
-    
-    if (!accessToken) {
-      console.log("❌ No access token found");
-      setIsChecking(false);
-      return;
-    }
+    const checkAuth = async () => {
+      const accessToken = token.get();
 
-    if (isAuth && user) {
-      console.log("✅ User already in store, skipping /user/me");
-      setIsChecking(false);
-      return;
-    }
-
-    console.log("🔄 Fetching /user/me...");
-    api
-      .get("/user/me")
-      .then((res) => {
-        console.log("✅ /user/me success:", res.data);
-        setUser(res.data.data);
-      })
-      .catch((error) => {
-        console.log("❌ /user/me error:", error);
-        console.log("Error response:", error.response);
-        console.log("Error status:", error.response?.status);
- 
-      })
-      .finally(() => {
-        console.log("✅ AuthProvider check complete");
+      // Если нет токена, пропускаем проверку
+      if (!accessToken) {
         setIsChecking(false);
-      });
+        return;
+      }
+
+      // Если пользователь уже в store, пропускаем запрос
+      if (isAuth && user) {
+        setIsChecking(false);
+        return;
+      }
+
+      // Запрашиваем данные пользователя
+      try {
+        const res = await api.get("/user/me");
+        setUser(res.data.data);
+      } catch (error: any) {
+        console.error("Ошибка при проверке авторизации:", error);
+        
+        // Если токен недействителен, очищаем данные
+        if (error.response?.status === 401) {
+          token.remove();
+          clearUser();
+        }
+      } finally {
+        setIsChecking(false);
+      }
+    };
+
+    checkAuth();
   }, []);
 
   if (isChecking) {
-    return <div>Загрузка...</div>;
+    return (
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          height: "100vh",
+        }}
+      >
+        <p>Загрузка...</p>
+      </div>
+    );
   }
 
   return <>{children}</>;

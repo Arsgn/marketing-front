@@ -14,7 +14,7 @@ import { token } from "@/api";
 
 const SignInPage: FC = () => {
   const router = useRouter();
-  const signIn = useSignIn();
+  const { mutate, isPending, isError, error } = useSignIn();
   const setUser = useAuthStore((s) => s.setUser);
   const [showPassword, setShowPassword] = useState(false);
 
@@ -23,41 +23,35 @@ const SignInPage: FC = () => {
     password: "",
   });
 
-const handleSubmit = (e: React.FormEvent) => {
-  e.preventDefault();
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
 
-  signIn.mutate(formData, {
-    onSuccess: (res) => {
-      console.log("=== API Response ===");
-      console.log("Full response:", res);
-      console.log("res.data:", res.data);
-      console.log("res.data.session:", res.data.session);
-      console.log("res.data.user:", res.data.user);
-      
-      // Сохраните токены
-      if (res.data.session) {
-        console.log("Saving tokens...");
-        token.set(res.data.session.access_token);
-        token.setRefresh(res.data.session.refresh_token);
-        console.log("access_token:", token.get());
-        console.log("refresh_token:", token.getRefresh());
-      }
-      
-      console.log("Setting user...");
-      setUser(res.data.user);
-      
-      console.log("=== localStorage ===");
-      console.log("access_token:", localStorage.getItem("access_token"));
-      console.log("refresh_token:", localStorage.getItem("refresh_token"));
-      console.log("auth-storage:", localStorage.getItem("auth-storage"));
-      
-      router.push("/");
-    },
-    onError: (error: any) => {
-      alert(error.response?.data?.error || "Ошибка входа");
-    },
-  });
-};
+    mutate(formData, {
+      onSuccess: (res) => {
+        if (!res.success) {
+          alert("Ошибка входа");
+          return;
+        }
+
+        // Сохраняем токены
+        if (res.data.session) {
+          token.set(res.data.session.access_token);
+          token.setRefresh(res.data.session.refresh_token);
+        }
+
+        // Сохраняем пользователя в store
+        setUser(res.data.user);
+
+        // Переходим на главную
+        router.push("/");
+      },
+      onError: (error: any) => {
+        const errorMessage =
+          error.response?.data?.error || "Неверный email или пароль";
+        alert(errorMessage);
+      },
+    });
+  };
 
   return (
     <section className={scss.SignInPage}>
@@ -72,9 +66,10 @@ const handleSubmit = (e: React.FormEvent) => {
           <form className={scss.blog} onSubmit={handleSubmit}>
             <h1>Добро пожаловать</h1>
 
-            {signIn.isError && (
+            {isError && (
               <p className={scss.error}>
-                {(signIn.error as any)?.response?.data?.error || "Ошибка входа"}
+                {(error as any)?.response?.data?.error ||
+                  "Неверный email или пароль"}
               </p>
             )}
 
@@ -89,21 +84,27 @@ const handleSubmit = (e: React.FormEvent) => {
                 required
               />
 
-              <input
-                type={showPassword ? "text" : "password"}
-                placeholder="Пароль"
-                value={formData.password}
-                onChange={(e) =>
-                  setFormData({ ...formData, password: e.target.value })
-                }
-                required
-              />
-              <span
-                className={scss.eye}
-                onClick={() => setShowPassword(!showPassword)}
-              >
-                {showPassword ? <AiFillEyeInvisible className={scss.fit}/> : <AiFillEye className={scss.fit}/>}
-              </span>
+              <div className={scss.password} style={{ position: "relative" }}>
+                <input
+                  type={showPassword ? "text" : "password"}
+                  placeholder="Пароль"
+                  value={formData.password}
+                  onChange={(e) =>
+                    setFormData({ ...formData, password: e.target.value })
+                  }
+                  required
+                />
+                <span
+                  className={scss.eye}
+                  onClick={() => setShowPassword(!showPassword)}
+                >
+                  {showPassword ? (
+                    <AiFillEyeInvisible className={scss.fit} />
+                  ) : (
+                    <AiFillEye className={scss.fit} />
+                  )}
+                </span>
+              </div>
 
               <button
                 type="button"
@@ -118,9 +119,9 @@ const handleSubmit = (e: React.FormEvent) => {
               <button
                 type="submit"
                 className={scss.signIn}
-                disabled={signIn.isPending}
+                disabled={isPending}
               >
-                {signIn.isPending ? "Загрузка..." : "Войти"}
+                {isPending ? "Вход..." : "Войти"}
               </button>
 
               <div className={scss.register}>

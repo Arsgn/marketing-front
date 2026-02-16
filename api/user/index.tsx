@@ -1,6 +1,7 @@
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { api, token } from "..";
 import { useAuthStore } from "@/store/auth.store";
+import { useRouter } from "next/navigation";
 
 const useSignIn = () => {
   const setUser = useAuthStore((s) => s.setUser);
@@ -24,22 +25,15 @@ const useSignIn = () => {
 };
 
 const useSignUp = () => {
-  const setUser = useAuthStore((s) => s.setUser);
-
   return useMutation<AUTH.SignUpRes, Error, AUTH.SignUpReq>({
     mutationFn: async (data) => {
-      const response = await api.post<AUTH.SignUpRes>("/user/sign-up", data);
-
-      if (response.data.success) {
-        token.set(response.data.data.session.access_token);
-        token.setRefresh(response.data.data.session.refresh_token);
-        setUser(response.data.data.user);
-      }
-
+      const response = await api.post("/user/sign-up", data);
       return response.data;
     },
   });
 };
+
+
 
 const useSignOut = () => {
   const clearUser = useAuthStore((s) => s.clearUser);
