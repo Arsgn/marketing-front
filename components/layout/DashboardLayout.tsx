@@ -67,7 +67,7 @@ const DashboardLayout = ({ children }: Props) => {
           <div className={scss.icons}>
             <MdOutlineChat />
             <Link 
-              href="/messages"
+              href="/private-chat"
               className={pathname === "/chat" ? scss.active : ""}
             >
               Чат

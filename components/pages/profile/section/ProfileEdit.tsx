@@ -4,23 +4,30 @@ import scss from "./ProfileEdit.module.scss";
 import { useAuthStore } from "@/store/auth.store";
 import { useRouter } from "next/navigation";
 import { IoArrowBack } from "react-icons/io5";
+import { useUpdateUser } from "@/api/user";
 
 const ProfileEdit: FC = () => {
   const { user, setUser } = useAuthStore();
   const router = useRouter();
+  const updateUser = useUpdateUser();
 
   const [formData, setFormData] = useState({
     name: user?.name || "",
-    email: user?.email || "",
     avatar: user?.avatar || "",
   });
 
-  const [previewImage, setPreviewImage] = useState(user?.avatar || "/avatar.svg");
-  const [isLoading, setIsLoading] = useState(false);
+  const [previewImage, setPreviewImage] = useState(
+    user?.avatar || "/avatar.svg"
+  );
 
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (file) {
+      if (file.size > 5 * 1024 * 1024) {
+        alert("Файл слишком большой. Максимальный размер: 5MB");
+        return;
+      }
+
       const reader = new FileReader();
       reader.onloadend = () => {
         setPreviewImage(reader.result as string);
@@ -32,24 +39,35 @@ const ProfileEdit: FC = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setIsLoading(true);
 
-    try {
-      await new Promise(resolve => setTimeout(resolve, 1000));
-      setUser({
-        ...user!,
-        name: formData.name,
-        email: formData.email,
-        avatar: formData.avatar,
-      });
-
-      alert("Профиль успешно обновлен!");
-      router.push("/profile");
-    } catch (error) {
-      alert("Ошибка при обновлении профиля");
-    } finally {
-      setIsLoading(false);
+    if (!user) {
+      alert("Пользователь не найден");
+      return;
     }
+
+    updateUser.mutate(
+      {
+        id: user.id,
+        data: {
+          name: formData.name,
+          avatar: formData.avatar,
+        },
+      },
+      {
+        onSuccess: (res) => {
+          if (res.success) {
+            setUser(res.data);
+            alert("Профиль успешно обновлен!");
+            router.push("/profile");
+          }
+        },
+        onError: (error: any) => {
+          const errorMessage =
+            error.response?.data?.error || "Ошибка при обновлении профиля";
+          alert(errorMessage);
+        },
+      }
+    );
   };
 
   const handleCancel = () => {
@@ -65,7 +83,6 @@ const ProfileEdit: FC = () => {
           </div>
 
           <form className={scss.form} onSubmit={handleSubmit}>
-            {/* Аватар */}
             <div className={scss.avatarSection}>
               <div className={scss.avatarPreview}>
                 <img src={previewImage} alt="Avatar preview" />
@@ -81,7 +98,6 @@ const ProfileEdit: FC = () => {
                   onChange={handleImageChange}
                   style={{ display: "none" }}
                 />
-                <p className={scss.hint}>JPG, PNG или GIF (MAX. 5MB)</p>
               </div>
             </div>
 
@@ -105,31 +121,13 @@ const ProfileEdit: FC = () => {
                 <input
                   type="email"
                   id="email"
-                  value={formData.email}
-                  onChange={(e) =>
-                    setFormData({ ...formData, email: e.target.value })
-                  }
-                  placeholder="Введите ваш email"
-                  required
+                  value={user?.email || ""}
+                  disabled
+                  style={{ backgroundColor: "#f5f5f5", cursor: "not-allowed" }}
                 />
-              </div>
-
-              <div className={scss.formGroup}>
-                <label htmlFor="password">Новый пароль</label>
-                <input
-                  type="password"
-                  id="password"
-                  placeholder="Оставьте пустым, если не хотите менять"
-                />
-              </div>
-
-              <div className={scss.formGroup}>
-                <label htmlFor="confirmPassword">Подтвердите пароль</label>
-                <input
-                  type="password"
-                  id="confirmPassword"
-                  placeholder="Повторите новый пароль"
-                />
+                <small style={{ color: "#666" }}>
+                  Email нельзя изменить
+                </small>
               </div>
             </div>
 
@@ -138,16 +136,16 @@ const ProfileEdit: FC = () => {
                 type="button"
                 className={scss.cancelBtn}
                 onClick={handleCancel}
-                disabled={isLoading}
+                disabled={updateUser.isPending}
               >
                 Отмена
               </button>
               <button
                 type="submit"
                 className={scss.saveBtn}
-                disabled={isLoading}
+                disabled={updateUser.isPending}
               >
-                {isLoading ? "Сохранение..." : "Сохранить изменения"}
+                {updateUser.isPending ? "Сохранение..." : "Сохранить изменения"}
               </button>
             </div>
           </form>
