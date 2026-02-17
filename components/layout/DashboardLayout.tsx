@@ -6,9 +6,9 @@ import { usePathname } from "next/navigation";
 import { IoIosSettings, IoMdNotificationsOutline } from "react-icons/io";
 import { useRouter } from "next/navigation";
 import { useAuthStore } from "@/store/auth.store";
-import { FaUser } from "react-icons/fa";
+import { FaStar, FaUser } from "react-icons/fa";
 import { MdOutlineChat } from "react-icons/md";
-import { IoFolderOpen } from "react-icons/io5";
+import { IoFolderOpen, IoHome } from "react-icons/io5";
 import { BiLogOut } from "react-icons/bi";
 import { useSignOut } from "@/api/user"; 
 import { token } from "@/api";
@@ -75,6 +75,26 @@ const DashboardLayout = ({ children }: Props) => {
           </div>
 
           <div className={scss.icons}>
+            <IoHome />
+            <Link 
+              href="/"
+              className={pathname === "/home" ? scss.active : ""}
+            >
+              Главная
+            </Link>
+          </div>
+
+          <div className={scss.icons}>
+            <FaStar />
+            <Link 
+              href=""
+              className={pathname === "/home" ? scss.active : ""}
+            >
+              Оценить
+            </Link>
+          </div>
+
+          <div className={scss.icons}>
             <IoIosSettings />
             <Link 
               href="/settings"
@@ -93,8 +113,6 @@ const DashboardLayout = ({ children }: Props) => {
               Выйти
             </button>
           </div>
-
-          <Link href="/" className={scss.backLink}>Назад</Link>
         </nav>
       </aside>
 

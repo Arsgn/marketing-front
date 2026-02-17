@@ -11,492 +11,246 @@
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
   }
 
+  // ── Список контактов ──────────────────────────────
+
   .contactsList {
-    width: 380px;
+    width: 320px;
     background: #f0f0f0;
     border-right: 1px solid #e0e0e0;
     display: flex;
     flex-direction: column;
-  }
-
-  .contactsHeader {
-    padding: 20px 20px 15px;
-    background: #f0f0f0;
-    border-bottom: 1px solid #e0e0e0;
+    overflow-y: auto;
 
     h2 {
       margin: 0;
-      font-size: 22px;
+      padding: 20px;
+      font-size: 20px;
       font-weight: 600;
       color: #333;
-    }
-  }
-
-  .contacts {
-    flex: 1;
-    overflow-y: auto;
-
-    &::-webkit-scrollbar {
-      width: 6px;
+      border-bottom: 1px solid #e0e0e0;
     }
 
-    &::-webkit-scrollbar-track {
-      background: transparent;
-    }
-
-    &::-webkit-scrollbar-thumb {
-      background: #c0c0c0;
-      border-radius: 3px;
-    }
+    &::-webkit-scrollbar { width: 4px; }
+    &::-webkit-scrollbar-thumb { background: #ccc; border-radius: 4px; }
   }
 
   .contactItem {
     display: flex;
+    align-items: center;
     gap: 12px;
-    padding: 20px 20px;
+    padding: 14px 20px;
     cursor: pointer;
-    transition: background 0.2s;
     border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+    transition: background 0.2s;
 
-    &:hover {
-      background: rgba(0, 0, 0, 0.03);
+    img {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      object-fit: cover;
+      flex-shrink: 0;
     }
+
+    svg {
+      width: 44px;
+      height: 44px;
+      padding: 8px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #667eea, #764ba2);
+      color: white;
+      flex-shrink: 0;
+    }
+
+    span {
+      font-size: 15px;
+      font-weight: 500;
+      color: #333;
+    }
+
+    &:hover { background: rgba(0, 0, 0, 0.04); }
 
     &.active {
       background: #dcdcdc;
-    }
-
-    &.publicChatItem {
-      border-bottom: 2px solid rgba(102, 126, 234, 0.2);
-      
-      &:hover {
-        background: rgba(102, 126, 234, 0.05);
-      }
-
-      &.active {
-        background: rgba(102, 126, 234, 0.1);
-      }
+      span { font-weight: 600; }
     }
   }
 
-  .contactAvatar {
-    position: relative;
-    flex-shrink: 0;
-
-    img {
-      width: 50px;
-      height: 50px;
-      border-radius: 50%;
-      object-fit: cover;
-    }
-
-    .onlineStatus {
-      position: absolute;
-      bottom: 2px;
-      right: 2px;
-      width: 12px;
-      height: 12px;
-      background: #4caf50;
-      border: 2px solid #f0f0f0;
-      border-radius: 50%;
-    }
-  }
-
-  .publicChatIcon {
-    width: 50px;
-    height: 50px;
-    border-radius: 50%;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 28px;
-    color: white;
-  }
-
-  .contactInfo {
-    flex: 1;
-    min-width: 0;
-  }
-
-  .contactTop {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 4px;
-
-    h3 {
-      margin: 0;
-      font-size: 15px;
-      font-weight: 600;
-      color: #333;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-    }
-
-    .time {
-      font-size: 12px;
-      color: #999;
-      flex-shrink: 0;
-      margin-left: 8px;
-    }
-  }
-
-  .lastMessage {
-    margin: 0;
-    font-size: 13px;
-    color: #666;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-  }
-
-  .noContacts {
-    padding: 40px 20px;
-    text-align: center;
-    color: #999;
-  }
+  // ── Область чата ──────────────────────────────────
 
   .chatArea {
     flex: 1;
     display: flex;
     flex-direction: column;
-    background: white;
-  }
+    overflow: hidden;
 
-  .chatHeader {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 15px 25px;
-    border-bottom: 1px solid #e0e0e0;
-    background: white;
-  }
-
-  .chatUserInfo {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-  }
-
-  .chatAvatar {
-    position: relative;
-
-    img {
-      width: 45px;
-      height: 45px;
-      border-radius: 50%;
-      object-fit: cover;
-    }
-
-    .publicChatIcon {
-      width: 45px;
-      height: 45px;
-      border-radius: 50%;
-      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 24px;
-      color: white;
-    }
-
-    .onlineStatus {
-      position: absolute;
-      bottom: 0;
-      right: 0;
-      width: 12px;
-      height: 12px;
-      background: #4caf50;
-      border: 2px solid white;
-      border-radius: 50%;
-    }
-  }
-
-  .chatUserDetails {
     h2 {
-      margin: 0 0 2px;
+      margin: 0;
+      padding: 16px 24px;
       font-size: 18px;
       font-weight: 600;
       color: #333;
+      border-bottom: 1px solid #e0e0e0;
+      background: white;
     }
 
-    .status {
-      font-size: 13px;
-      color: #666;
-    }
-  }
-
-  .chatActions {
-    display: flex;
-    gap: 15px;
-  }
-
-  .actionBtn {
-    background: none;
-    border: none;
-    cursor: pointer;
-    font-size: 24px;
-    color: #666;
-    padding: 8px;
-    border-radius: 50%;
-    transition: all 0.2s;
-
-    &:hover {
-      background: #f0f0f0;
-      color: #333;
+    > p {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #999;
+      font-size: 16px;
     }
   }
 
   .messagesArea {
     flex: 1;
     overflow-y: auto;
-    padding: 20px 25px;
+    padding: 20px 24px;
     background: #fafafa;
-
-    &::-webkit-scrollbar {
-      width: 6px;
-    }
-
-    &::-webkit-scrollbar-track {
-      background: transparent;
-    }
-
-    &::-webkit-scrollbar-thumb {
-      background: #c0c0c0;
-      border-radius: 3px;
-    }
-  }
-
-  .messageWrapper {
-    display: flex;
-    margin-bottom: 15px;
-    animation: slideIn 0.3s ease-out;
-    gap: 10px;
-    align-items: flex-end;
-
-    &.myMessage {
-      justify-content: flex-end;
-
-      .messageBubble {
-        background: #29b6f6;
-        color: white;
-        max-width: 200px;
-        border-radius: 18px 18px 4px 18px;
-
-        p{
-          color: white;
-        }
-      }
-
-      .time {
-        color: rgba(255, 255, 255, 0.8);
-      }
-    }
-
-    &.otherMessage {
-      justify-content: flex-start;
-
-      .messageBubble {
-        background: #424242;
-        color: white;
-        border-radius: 18px 18px 18px 4px;
-        max-width: 200px;
-
-         p{
-          color: white;
-        }
-      }
-
-      .time {
-        color: rgba(255, 255, 255, 0.7);
-      }
-    }
-  }
-
-  .avatar {
-    width: 35px;
-    height: 35px;
-    border-radius: 50%;
-    overflow: hidden;
-    flex-shrink: 0;
-
-    img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-    }
-  }
-
-  .messageContent {
     display: flex;
     flex-direction: column;
-    gap: 4px;
-    max-width: 60%;
+    gap: 10px;
+
+    &::-webkit-scrollbar { width: 4px; }
+    &::-webkit-scrollbar-thumb { background: #ccc; border-radius: 4px; }
   }
 
-  .userName {
-    font-size: 12px;
-    font-weight: 600;
-    color: #667eea;
-    padding: 0 12px;
-  }
+  // ── Сообщения ─────────────────────────────────────
 
-  .messageBubble {
-    max-width: 60%;
-    padding: 12px 16px;
-    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+  .myMessage {
+    display: flex;
+    justify-content: flex-end;
+    gap: 8px;
+    align-items: flex-end;
+    animation: fadeIn 0.2s ease-out;
+
+    img {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      object-fit: cover;
+    }
+
+    div {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 2px;
+
+      span {
+        font-size: 12px;
+        color: #999;
+      }
+    }
 
     p {
-      margin: 0 0 6px;
-      font-size: 15px;
+      margin: 0;
+      padding: 10px 14px;
+      background: #29b6f6;
+      color: white;
+      border-radius: 18px 18px 4px 18px;
+      font-size: 14px;
       line-height: 1.5;
-      word-wrap: break-word;
-    }
-
-    .time {
-      font-size: 11px;
-      display: block;
-      text-align: right;
+      max-width: 300px;
+      word-break: break-word;
     }
   }
 
-  .emptyChat {
+  .otherMessage {
     display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 100%;
-    color: #ffffff;
-    font-size: 16px;
+    justify-content: flex-start;
+    gap: 8px;
+    align-items: flex-end;
+    animation: fadeIn 0.2s ease-out;
+
+    img {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      object-fit: cover;
+    }
+
+    div {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 2px;
+
+      span {
+        font-size: 12px;
+        color: #667eea;
+        font-weight: 600;
+        padding-left: 4px;
+      }
+    }
+
+    p {
+      margin: 0;
+      padding: 10px 14px;
+      background: #424242;
+      color: white;
+      border-radius: 18px 18px 18px 4px;
+      font-size: 14px;
+      line-height: 1.5;
+      max-width: 300px;
+      word-break: break-word;
+    }
   }
+
+  // ── Форма отправки ────────────────────────────────
 
   .messageForm {
     display: flex;
     align-items: center;
     gap: 10px;
-    padding: 15px 25px;
+    padding: 14px 24px;
     background: white;
     border-top: 1px solid #e0e0e0;
 
     input {
       flex: 1;
-      padding: 12px 16px;
+      padding: 11px 16px;
       border: none;
       background: #f0f0f0;
-      border-radius: 25px;
-      font-size: 15px;
+      border-radius: 24px;
+      font-size: 14px;
       outline: none;
-      transition: background 0.2s;
 
-      &:focus {
-        background: #e8e8e8;
-      }
-
-      &::placeholder {
-        color: #999;
-      }
+      &:focus { background: #e8e8e8; }
+      &::placeholder { color: #aaa; }
+      &:disabled { opacity: 0.6; }
     }
 
     button {
-      background: none;
+      padding: 10px 20px;
+      background: #29b6f6;
+      color: white;
       border: none;
+      border-radius: 24px;
+      font-size: 14px;
+      font-weight: 500;
       cursor: pointer;
-      font-size: 22px;
-      color: #666;
-      padding: 8px;
-      border-radius: 50%;
-      transition: all 0.2s;
-      display: flex;
-      align-items: center;
-      justify-content: center;
+      transition: background 0.2s;
 
-      &:hover {
-        background: #f0f0f0;
-        color: #333;
-      }
-
-      &:disabled {
-        opacity: 0.5;
-        cursor: not-allowed;
-      }
-    }
-
-    .sendBtn {
-      background: #29b6f6;
-      color: white;
-      width: 40px;
-      height: 40px;
-
-      &:hover {
-        background: #0fa7e7;
-      }
-    }
-
-    .micBtn {
-      background: #29b6f6;
-      color: white;
-      width: 40px;
-      height: 40px;
-
-      &:hover {
-        background: #0fa7e7;
-      }
+      &:hover { background: #0fa7e7; }
+      &:disabled { opacity: 0.5; cursor: not-allowed; }
     }
   }
 
-  .noSelectedChat {
-    flex: 1;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: #fafafa;
+  // ── Анимация ──────────────────────────────────────
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(6px); }
+    to   { opacity: 1; transform: translateY(0); }
   }
 
-  .emptyState {
-    text-align: center;
-    color: #999;
-
-    h2 {
-      font-size: 24px;
-      font-weight: 600;
-      margin: 0 0 10px;
-      color: #666;
-    }
-
-    p {
-      font-size: 16px;
-      margin: 0;
-    }
-  }
-
-  @keyframes slideIn {
-    from {
-      opacity: 0;
-      transform: translateY(10px);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
-  }
+  // ── Адаптив ───────────────────────────────────────
 
   @media (max-width: 768px) {
-    .chatContainer {
-      flex-direction: column;
-    }
-
-    .contactsList {
-      width: 100%;
-      max-height: 40vh;
-    }
-
-    .chatArea {
-      height: 60vh;
-    }
-
-    .messageBubble {
-      max-width: 80%;
-    }
+    .chatContainer { flex-direction: column; }
+    .contactsList { width: 100%; max-height: 35vh; }
+    .chatArea { height: 65vh; }
+    .myMessage p, .otherMessage p { max-width: 220px; }
   }
 }

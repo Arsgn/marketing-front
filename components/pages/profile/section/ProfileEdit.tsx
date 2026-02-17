@@ -14,17 +14,18 @@ const ProfileEdit: FC = () => {
   const [formData, setFormData] = useState({
     name: user?.name || "",
     avatar: user?.avatar || "",
+    email: user?.email || "",
   });
 
   const [previewImage, setPreviewImage] = useState(
-    user?.avatar || "/avatar.svg"
+    user?.avatar || "/avatar.svg",
   );
 
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (file) {
-      if (file.size > 5 * 1024 * 1024) {
-        alert("Файл слишком большой. Максимальный размер: 5MB");
+      if (file.size > 50 * 1024 * 1024) {
+        alert("Файл слишком большой. Максимальный размер: 50MB");
         return;
       }
 
@@ -66,7 +67,7 @@ const ProfileEdit: FC = () => {
             error.response?.data?.error || "Ошибка при обновлении профиля";
           alert(errorMessage);
         },
-      }
+      },
     );
   };
 
@@ -103,9 +104,9 @@ const ProfileEdit: FC = () => {
 
             <div className={scss.formFields}>
               <div className={scss.formGroup}>
-                <label htmlFor="name">Имя</label>
+                <label htmlFor="name">Name</label>
                 <input
-                  type="text"
+                  type="name"
                   id="name"
                   value={formData.name}
                   onChange={(e) =>
@@ -125,9 +126,6 @@ const ProfileEdit: FC = () => {
                   disabled
                   style={{ backgroundColor: "#f5f5f5", cursor: "not-allowed" }}
                 />
-                <small style={{ color: "#666" }}>
-                  Email нельзя изменить
-                </small>
               </div>
             </div>
 
