@@ -24,7 +24,10 @@ const Profile: FC = () => {
                   src={user?.avatar || "/avatar.svg"}
                   alt={user?.name || "Profile Image"}
                 />
+                <div className={scss.text}>
                   <h2>{user?.name}</h2>
+                  <p>Владелец</p>
+                </div>
               </div>
               <button className={scss.edit} onClick={handleEdit}>Редактировать</button>
             </div>
