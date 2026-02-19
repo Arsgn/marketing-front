@@ -1,49 +1,75 @@
-declare namespace CATEGORY {
-  interface Popular {
+declare namespace CHAT {
+  interface User {
     id: number;
-    title: string;
-    description: string;
-    price: number;
-    image: string | null;
-    categoryId: number;
-    createdAt: string;
-    updatedAt: string;
+    name: string | null;
+    avatar: string | null;
   }
 
-  interface Category {
+  interface Message {
     id: number;
-    name: string;
-    createdAt: string;
-    updatedAt: string;
-    populars: Popular[];
-  }
-
-  interface GetCategoriesRes {
-    success: boolean;
-    data: Category[];
-  }
-
-  interface CreateCategoryReq {
-    name: string;
-  }
-
-  interface CreateCategoryRes {
-    success: boolean;
-    data: Category;
-  }
-
-  interface UpdateCategoryReq {
-    id: number;
-    name: string;
-  }
-
-  interface UpdateCategoryRes {
-    success: boolean;
-    data: Category;
-  }
-
-  interface DeleteCategoryRes {
-    success: boolean;
+    userId: number;
     message: string;
+    createdAt: string;
+    updatedAt: string;
+    user: User;
+  }
+
+  interface GetMessagesRes {
+    success: boolean;
+    data: Message[];
+  }
+
+  interface SendMessageReq {
+    message: string;
+  }
+
+  interface SendMessageRes {
+    success: boolean;
+    data: Message;
+  }
+
+  interface GetUsersRes {
+    success: boolean;
+    data: {
+      id: number;
+      name: string | null;
+      email: string;
+      avatar: string | null;
+    }[];
+  }
+
+  interface PrivateMessage {
+    id: number;
+    senderId: number;
+    receiverId: number;
+    message: string;
+    createdAt: string;
+    updatedAt: string;
+  }
+
+  interface GetPrivateMessagesRes {
+    success: boolean;
+    data: PrivateMessage[];
+  }
+
+  interface SendPrivateMessageReq {
+    receiverId: number;
+    message: string;
+  }
+
+  interface SendPrivateMessageRes {
+    success: boolean;
+    data: PrivateMessage;
+  }
+
+  interface LastMessage {
+    userId: number;
+    lastMessage: string | null;
+    createdAt: string | null;
+  }
+
+  interface GetLastMessagesRes {
+    success: boolean;
+    data: LastMessage[];
   }
 }
