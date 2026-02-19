@@ -1,44 +1,76 @@
 "use client";
 import scss from "./Popular.module.scss";
-import mac from "../../../public/pop.svg";
 import time from "../../../public/populattime.svg";
 import water from "../../../public/popularwater.svg";
 import img from "../../../public/popularimg.svg";
+
 import { getPopular } from "@/api/course/popularApi";
+import { useGetCategories } from "@/api/category";
+
 import { useEffect, useState } from "react";
 import { IoIosHeartEmpty } from "react-icons/io";
-
 import Image from "next/image";
 import { SlArrowRight } from "react-icons/sl";
 
-type Popular = {
+type PopularType = {
   id: number;
-  title: String;
-  description: String;
+  title: string;
+  description: string;
   price: number;
   image: string;
   categoryId: number;
-  category: string;
-  reviews: string;
-  favorites: string;
 };
 
 const Popular = () => {
-  const [product, setProduct] = useState<Popular[]>([]);
+  const [product, setProduct] = useState<PopularType[]>([]);
+  const [activeCategory, setActiveCategory] = useState<number | null>(null);
+
+  const { data: categoryData } = useGetCategories();
 
   useEffect(() => {
-    const fetchTodos = async () => {
+    const fetchPopular = async () => {
       const data = await getPopular();
       setProduct(data);
     };
 
-    fetchTodos();
+    fetchPopular();
   }, []);
+
+  const categories = categoryData?.data || [];
+
+  const filteredProducts =
+    activeCategory === null
+      ? product
+      : product.filter((item) => item.categoryId === activeCategory);
+
   return (
     <div className={scss.Popular}>
       <div className={scss.content}>
+        <h1>Популярные курсы</h1>
+
+        {/* 🔥 КАТЕГОРИИ */}
+        <div className={scss.categories}>
+          <button
+            onClick={() => setActiveCategory(null)}
+            className={activeCategory === null ? scss.active : ""}
+          >
+            Все Курсы
+          </button>
+
+          {categories.map((cat) => (
+            <button
+              key={cat.id}
+              onClick={() => setActiveCategory(cat.id)}
+              className={activeCategory === cat.id ? scss.active : ""}
+            >
+              {cat.name}
+            </button>
+          ))}
+        </div>
+
+        {/* 🔥 КАРТОЧКИ */}
         <div className={scss.man}>
-          {product.map((el) => (
+          {filteredProducts.map((el) => (
             <div key={el.id} className={scss.block}>
               <img
                 src={el.image}
@@ -48,48 +80,34 @@ const Popular = () => {
                 style={{ objectFit: "cover" }}
               />
 
-              <h5>{el.price}сом</h5>
+              <h5>{el.price} сом</h5>
 
               <h4>
                 <IoIosHeartEmpty />
               </h4>
+
               <div className={scss.text}>
                 <h2>{el.title}</h2>
                 <p>{el.description}</p>
 
                 <div className={scss.icon}>
                   <div className={scss.url}>
-                    <Image
-                      src={time}
-                      alt="im"
-                      width={100}
-                      className={scss.time}
-                    />
+                    <Image src={time} alt="im" width={15} />
                     <span>22ч 30мин</span>
                   </div>
                   <div className={scss.url}>
-                    <Image
-                      src={water}
-                      alt="im"
-                      width={100}
-                      className={scss.time}
-                    />
+                    <Image src={water} alt="im" width={15} />
                     <span>64 уроков</span>
                   </div>
                   <div className={scss.url}>
-                    <Image
-                      src={img}
-                      alt="im"
-                      width={100}
-                      className={scss.time}
-                    />
+                    <Image src={img} alt="im" width={15} />
                     <span>Прогресс</span>
                   </div>
                 </div>
 
                 <button>
                   Узнать больше
-                  <SlArrowRight style={{ fontWeight: "500" }} />
+                  <SlArrowRight />
                 </button>
               </div>
             </div>

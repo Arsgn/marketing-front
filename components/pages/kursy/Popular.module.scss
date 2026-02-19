@@ -133,3 +133,31 @@
     }
   }
 }
+
+
+
+.categories {
+  display: flex;
+  gap: 15px;
+  margin: 20px 0 40px 0;
+
+  button {
+    padding: 10px 20px;
+    border-radius: 8px;
+    border: 1px solid #dcdcdc;
+    background: white;
+    cursor: pointer;
+    transition: 0.3s;
+
+    &:hover {
+      background: #2d8cff;
+      color: white;
+    }
+  }
+}
+
+.active {
+  background: #2d8cff !important;
+  color: white !important;
+  border-color: #2d8cff !important;
+}
