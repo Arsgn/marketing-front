@@ -9,9 +9,14 @@ import { useEffect, useState } from "react";
 import { IoIosHeartEmpty, IoIosHeart } from "react-icons/io";
 import Image from "next/image";
 import { SlArrowRight } from "react-icons/sl";
-import { useGetFavorites, useAddFavorite, useRemoveFavorite } from "@/api/favorite";
-import { useFavoriteStore } from "@/store/favorite.store";
 import { useAuthStore } from "@/store/auth.store";
+import { useFavoriteStore } from "@/store/favorite.store";
+import {
+  useAddFavorite,
+  useGetFavorites,
+  useRemoveFavorite,
+} from "@/api/favorite";
+import Link from "next/link";
 
 type PopularType = {
   id: number;
@@ -118,10 +123,14 @@ const Popular = () => {
                     <Image src={img} alt="progress" width={15} />
                     <span>Прогресс</span>
                   </div>
+
+                  <Link href={`/kursy/${el.id}`}>
+                    <button>
+                      Узнать больше
+                      <SlArrowRight />
+                    </button>
+                  </Link>
                 </div>
-                <button>
-                  Узнать больше <SlArrowRight />
-                </button>
               </div>
             </div>
           ))}

@@ -1,7 +1,6 @@
-import { Home } from "./sections/Home";
-import { FC } from "react";
+import { Home } from "../../pages/home/sections/Home";
 
-const HomePage: FC = () => {
+const HomePage = () => {
   return (
     <>
       <Home />
