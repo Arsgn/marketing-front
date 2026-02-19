@@ -148,3 +148,12 @@
     }
   }
 }
+
+.heartBtn {
+  transition: 0.2s;
+}
+
+.hearted {
+  background: #e74040 !important;
+  color: #fff !important;
+}

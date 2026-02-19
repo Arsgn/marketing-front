@@ -7,9 +7,9 @@ import { useGetFavorites, useRemoveFavorite } from "@/api/favorite";
 import { IoIosHeart } from "react-icons/io";
 import { SlArrowRight } from "react-icons/sl";
 import Image from "next/image";
-import time from "../../../../public/populattime.svg";
-import water from "../../../../public/popularwater.svg";
-import img from "../../../../public/popularimg.svg";
+import time from "@/public/populattime.svg";
+import water from "@/public/popularwater.svg";
+import img from "@/public/popularimg.svg";
 
 type Tab = "courses" | "favorites";
 
@@ -27,8 +27,6 @@ const Profile: FC = () => {
     <section className={scss.Profile}>
       <div className="container">
         <div className={scss.content}>
-
-          {/* Шапка */}
           <div className={scss.home}>
             <img src="/Rectangle 29840.svg" alt="" />
             <div className={scss.block}>
@@ -43,13 +41,15 @@ const Profile: FC = () => {
                   <p>Студент</p>
                 </div>
               </div>
-              <button className={scss.edit} onClick={() => router.push("/edit")}>
+              <button
+                className={scss.edit}
+                onClick={() => router.push("/edit")}
+              >
                 Редактировать
               </button>
             </div>
           </div>
 
-          {/* Вкладки */}
           <div className={scss.tabs_section}>
             <div className={scss.tabs}>
               <button
@@ -59,7 +59,9 @@ const Profile: FC = () => {
                 Мои курсы
               </button>
               <button
-                className={activeTab === "favorites" ? scss.tab_active : scss.tab}
+                className={
+                  activeTab === "favorites" ? scss.tab_active : scss.tab
+                }
                 onClick={() => setActiveTab("favorites")}
               >
                 Избранные
@@ -75,7 +77,9 @@ const Profile: FC = () => {
             {activeTab === "favorites" && (
               <div className={scss.cards}>
                 {favorites.length === 0 ? (
-                  <p className={scss.empty}>Вы ещё не добавили курсы в избранное</p>
+                  <p className={scss.empty}>
+                    Вы ещё не добавили курсы в избранное
+                  </p>
                 ) : (
                   favorites.map((fav) => (
                     <div key={fav.id} className={scss.card}>
@@ -86,7 +90,11 @@ const Profile: FC = () => {
                             ? "Бесплатно"
                             : `${fav.popular.price} сом`}
                         </h5>
-                        <h4 onClick={() => removeFavorite({ popularId: fav.popularId })}>
+                        <h4
+                          onClick={() =>
+                            removeFavorite({ popularId: fav.popularId })
+                          }
+                        >
                           <IoIosHeart />
                         </h4>
                       </div>
@@ -117,7 +125,6 @@ const Profile: FC = () => {
               </div>
             )}
           </div>
-
         </div>
       </div>
     </section>

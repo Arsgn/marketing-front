@@ -3,8 +3,16 @@ import { FC, useEffect, useState } from "react";
 import scss from "./Course.module.scss";
 import { getPopular } from "@/api/course/popularApi";
 import { useGetCategories } from "@/api/category";
-import { IoIosHeartEmpty } from "react-icons/io";
+import {
+  useGetFavorites,
+  useAddFavorite,
+  useRemoveFavorite,
+} from "@/api/favorite";
+import { useFavoriteStore } from "@/store/favorite.store";
+import { useAuthStore } from "@/store/auth.store";
+import { IoIosHeartEmpty, IoIosHeart } from "react-icons/io";
 import { SlArrowRight } from "react-icons/sl";
+import { useRouter } from "next/navigation";
 
 type PopularType = {
   id: number;
@@ -19,7 +27,20 @@ const Course: FC = () => {
   const [products, setProducts] = useState<PopularType[]>([]);
   const [activeCategory, setActiveCategory] = useState<number | null>(null);
 
+  const router = useRouter();
+  const { user } = useAuthStore();
   const { data: categoryData } = useGetCategories();
+  const { setFavoriteIds, isFavorite } = useFavoriteStore();
+
+  const { data: favoritesData } = useGetFavorites();
+  const { mutate: addFavorite } = useAddFavorite();
+  const { mutate: removeFavorite } = useRemoveFavorite();
+
+  useEffect(() => {
+    if (favoritesData?.data) {
+      setFavoriteIds(favoritesData.data.map((f) => f.popularId));
+    }
+  }, [favoritesData]);
 
   useEffect(() => {
     const fetchPopular = async () => {
@@ -36,11 +57,19 @@ const Course: FC = () => {
       ? products
       : products.filter((item) => item.categoryId === activeCategory);
 
+  const handleHeartClick = (e: React.MouseEvent, popularId: number) => {
+    e.stopPropagation();
+    if (!user) return alert("Войдите в аккаунт");
+    if (isFavorite(popularId)) {
+      removeFavorite({ popularId });
+    } else {
+      addFavorite({ popularId });
+    }
+  };
+
   return (
     <section className={scss.Course}>
       <div className={scss.content}>
-
-        {/* Категории */}
         <div className={scss.categories}>
           <button
             onClick={() => setActiveCategory(null)}
@@ -59,7 +88,6 @@ const Course: FC = () => {
           ))}
         </div>
 
-        {/* Карточки курсов */}
         <div className={scss.grid}>
           {filteredProducts.length === 0 ? (
             <p className={scss.empty}>Курсы не найдены</p>
@@ -72,9 +100,19 @@ const Course: FC = () => {
                     alt={el.title}
                     className={scss.cardImage}
                   />
-                  <span className={scss.priceTag}>{el.price} сом</span>
-                  <button className={scss.heartBtn}>
-                    <IoIosHeartEmpty size={20} />
+                  <span className={scss.priceTag}>
+                    {el.price === 0 ? "Бесплатно" : `${el.price} сом`}
+                  </span>
+
+                  <button
+                    className={`${scss.heartBtn} ${isFavorite(el.id) ? scss.hearted : ""}`}
+                    onClick={(e) => handleHeartClick(e, el.id)}
+                  >
+                    {isFavorite(el.id) ? (
+                      <IoIosHeart size={20} />
+                    ) : (
+                      <IoIosHeartEmpty size={20} />
+                    )}
                   </button>
                 </div>
 
@@ -97,7 +135,10 @@ const Course: FC = () => {
                     </div>
                   </div>
 
-                  <button className={scss.moreBtn}>
+                  <button
+                    className={scss.moreBtn}
+                    onClick={() => router.push(`/course/${el.id}`)}
+                  >
                     Узнать больше <SlArrowRight />
                   </button>
                 </div>
