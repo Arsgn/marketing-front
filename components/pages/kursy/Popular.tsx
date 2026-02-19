@@ -1,16 +1,17 @@
 "use client";
 import scss from "./Popular.module.scss";
-import time from "../../../public/populattime.svg";
-import water from "../../../public/popularwater.svg";
-import img from "../../../public/popularimg.svg";
-
+import time from "@/public/populattime.svg";
+import water from "@/public/popularwater.svg";
+import img from "@/public/popularimg.svg";
 import { getPopular } from "@/api/course/popularApi";
 import { useGetCategories } from "@/api/category";
-
 import { useEffect, useState } from "react";
-import { IoIosHeartEmpty } from "react-icons/io";
+import { IoIosHeartEmpty, IoIosHeart } from "react-icons/io";
 import Image from "next/image";
 import { SlArrowRight } from "react-icons/sl";
+import { useGetFavorites, useAddFavorite, useRemoveFavorite } from "@/api/favorite";
+import { useFavoriteStore } from "@/store/favorite.store";
+import { useAuthStore } from "@/store/auth.store";
 
 type PopularType = {
   id: number;
@@ -26,13 +27,24 @@ const Popular = () => {
   const [activeCategory, setActiveCategory] = useState<number | null>(null);
 
   const { data: categoryData } = useGetCategories();
+  const { user } = useAuthStore();
+  const { setFavoriteIds, isFavorite } = useFavoriteStore();
+
+  const { data: favoritesData } = useGetFavorites();
+  const { mutate: addFavorite } = useAddFavorite();
+  const { mutate: removeFavorite } = useRemoveFavorite();
+
+  useEffect(() => {
+    if (favoritesData?.data) {
+      setFavoriteIds(favoritesData.data.map((f) => f.popularId));
+    }
+  }, [favoritesData]);
 
   useEffect(() => {
     const fetchPopular = async () => {
       const data = await getPopular();
       setProduct(data);
     };
-
     fetchPopular();
   }, []);
 
@@ -43,12 +55,21 @@ const Popular = () => {
       ? product
       : product.filter((item) => item.categoryId === activeCategory);
 
+  const handleHeartClick = (e: React.MouseEvent, popularId: number) => {
+    e.stopPropagation();
+    if (!user) return alert("Войдите в аккаунт");
+    if (isFavorite(popularId)) {
+      removeFavorite({ popularId });
+    } else {
+      addFavorite({ popularId });
+    }
+  };
+
   return (
     <div className={scss.Popular}>
       <div className={scss.content}>
         <h1>Популярные курсы</h1>
 
-        {/* 🔥 КАТЕГОРИИ */}
         <div className={scss.categories}>
           <button
             onClick={() => setActiveCategory(null)}
@@ -56,7 +77,6 @@ const Popular = () => {
           >
             Все Курсы
           </button>
-
           {categories.map((cat) => (
             <button
               key={cat.id}
@@ -68,46 +88,39 @@ const Popular = () => {
           ))}
         </div>
 
-        {/* 🔥 КАРТОЧКИ */}
         <div className={scss.man}>
           {filteredProducts.map((el) => (
             <div key={el.id} className={scss.block}>
-              <img
-                src={el.image}
-                alt="img"
-                width={330}
-                height={250}
-                style={{ objectFit: "cover" }}
-              />
-
-              <h5>{el.price} сом</h5>
-
-              <h4>
-                <IoIosHeartEmpty />
-              </h4>
+              <div className={scss.img_wrapper}>
+                <img src={el.image} alt={el.title} />
+                <h5>{el.price === 0 ? "Бесплатно" : `${el.price} сом`}</h5>
+                <h4
+                  onClick={(e) => handleHeartClick(e, el.id)}
+                  className={isFavorite(el.id) ? scss.favorited : ""}
+                >
+                  {isFavorite(el.id) ? <IoIosHeart /> : <IoIosHeartEmpty />}
+                </h4>
+              </div>
 
               <div className={scss.text}>
                 <h2>{el.title}</h2>
                 <p>{el.description}</p>
-
                 <div className={scss.icon}>
                   <div className={scss.url}>
-                    <Image src={time} alt="im" width={15} />
+                    <Image src={time} alt="time" width={15} />
                     <span>22ч 30мин</span>
                   </div>
                   <div className={scss.url}>
-                    <Image src={water} alt="im" width={15} />
+                    <Image src={water} alt="lessons" width={15} />
                     <span>64 уроков</span>
                   </div>
                   <div className={scss.url}>
-                    <Image src={img} alt="im" width={15} />
+                    <Image src={img} alt="progress" width={15} />
                     <span>Прогресс</span>
                   </div>
                 </div>
-
                 <button>
-                  Узнать больше
-                  <SlArrowRight />
+                  Узнать больше <SlArrowRight />
                 </button>
               </div>
             </div>

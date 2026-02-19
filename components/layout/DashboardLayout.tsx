@@ -3,7 +3,7 @@ import { ReactNode } from "react";
 import scss from "./DashboardLayout.module.scss";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { IoIosSettings, IoMdNotificationsOutline } from "react-icons/io";
+import { IoIosSettings} from "react-icons/io";
 import { useRouter } from "next/navigation";
 import { useAuthStore } from "@/store/auth.store";
 import { FaStar, FaUser } from "react-icons/fa";
@@ -12,6 +12,7 @@ import { IoFolderOpen, IoHome } from "react-icons/io5";
 import { BiLogOut } from "react-icons/bi";
 import { useSignOut } from "@/api/user"; 
 import { token } from "@/api";
+import Notification from "../pages/profile/section/Notification";
 
 interface Props {
   children: ReactNode;
@@ -57,8 +58,8 @@ const DashboardLayout = ({ children }: Props) => {
           <div className={scss.icons}>
             <IoFolderOpen />
             <Link
-              href="/courses"
-              className={pathname === "/courses" ? scss.active : ""}
+              href="/product"
+              className={pathname === "/course" ? scss.active : ""}
             >
               Курсы
             </Link>
@@ -119,7 +120,7 @@ const DashboardLayout = ({ children }: Props) => {
       <div className={scss.main}>
         <header className={scss.header}>
           <div className={scss.notification}>
-            <IoMdNotificationsOutline />
+            <Notification />
           </div>
           <div className={scss.profile}>
             <img
