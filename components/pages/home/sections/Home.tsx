@@ -1,11 +1,37 @@
 "use client";
-import { FC } from "react";
+import { useEffect, useState } from "react";
 import scss from "./Home.module.scss";
 import Image from "next/image";
-import { CiHeart } from "react-icons/ci";
 import Join from "../join/Join";
+import { getAvailable } from "@/api/available/AvailableApi";
+import time from "../../../../public/populattime.svg";
+import water from "../../../../public/popularwater.svg";
+import { IoIosHeartEmpty } from "react-icons/io";
+import { SlArrowRight } from "react-icons/sl";
+import img from "../../../../public/popularimg.svg";
 
-export const Home: FC = () => {
+type Available = {
+  id: number;
+  title: string;
+  description: string;
+  price: number;
+  image: string;
+  reviews: string;
+  favorites: string;
+};
+
+export const Home = () => {
+  const [available, setAvailable] = useState<Available[]>([]);
+
+  useEffect(() => {
+    const fetchTodos = async () => {
+      const data = await getAvailable();
+      setAvailable(data);
+    };
+
+    fetchTodos();
+  }, []);
+
   return (
     <section className={scss.Home}>
       <div className="container">
@@ -123,49 +149,62 @@ export const Home: FC = () => {
           <br />
           <br />
           <div className={scss.Available_box}>
-            <div className={scss.Available}>
-              <Image src="/home7.svg" alt="logo" width={310} height={320} />
-              <CiHeart className={scss.heart} />
-              <h3>Как ставить о оценивать задачи</h3>
-              <span>
-                Мы ориентируемся на эргономику и ты где работаешь. Это всего
-                лишь нажатие клавиши.
-              </span>
-              <div className={scss.icon}>
-                <Image src="/home8.svg" alt="logo" width={80} height={40} />
-                <Image src="/home9.svg" alt="logo" width={80} height={40} />
-                <Image src="/home10.svg" alt="logo" width={80} height={40} />
+            {available.map((el) => (
+              <div key={el.id} className={scss.block}>
+                <img
+                  src={el.image}
+                  alt="img"
+                  width={330}
+                  height={200}
+                  style={{ objectFit: "contain" }}
+                />
+
+                <h5>{el.price}сом</h5>
+
+                <h4>
+                  <IoIosHeartEmpty />
+                </h4>
+                <div className={scss.text}>
+                  <h2>{el.title}</h2>
+                  <p>{el.description}</p>
+
+                  <div className={scss.icon}>
+                    <div className={scss.url}>
+                      <Image
+                        src={time}
+                        alt="im"
+                        width={100}
+                        className={scss.time}
+                      />
+                      <span>22ч 30мин</span>
+                    </div>
+                    <div className={scss.url}>
+                      <Image
+                        src={water}
+                        alt="im"
+                        width={100}
+                        className={scss.time}
+                      />
+                      <span>64 уроков</span>
+                    </div>
+                    <div className={scss.url}>
+                      <Image
+                        src={img}
+                        alt="im"
+                        width={100}
+                        className={scss.time}
+                      />
+                      <span>Прогресс</span>
+                    </div>
+                  </div>
+
+                  <button>
+                    Узнать больше
+                    <SlArrowRight style={{ fontWeight: "500" }} />
+                  </button>
+                </div>
               </div>
-              <button>Узнать больше</button>
-            </div>
-            <div className={scss.Available}>
-              <Image src="/home7.svg" alt="logo" width={310} height={320} />
-              <h3>Как ставить о оценивать задачи</h3>
-              <span>
-                Мы ориентируемся на эргономику и ты где работаешь. Это всего
-                лишь нажатие клавиши.
-              </span>
-              <div className={scss.icon}>
-                <Image src="/home8.svg" alt="logo" width={80} height={40} />
-                <Image src="/home9.svg" alt="logo" width={80} height={40} />
-                <Image src="/home10.svg" alt="logo" width={80} height={40} />
-              </div>
-              <button>Узнать больше</button>
-            </div>
-            <div className={scss.Available}>
-              <Image src="/home7.svg" alt="logo" width={310} height={320} />
-              <h3>Как ставить о оценивать задачи</h3>
-              <span>
-                Мы ориентируемся на эргономику и ты где работаешь. Это всего
-                лишь нажатие клавиши.
-              </span>
-              <div className={scss.icon}>
-                <Image src="/home8.svg" alt="logo" width={80} height={40} />
-                <Image src="/home9.svg" alt="logo" width={80} height={40} />
-                <Image src="/home10.svg" alt="logo" width={80} height={40} />
-              </div>
-              <button>Узнать больше</button>
-            </div>
+            ))}
           </div>
         </div>
         {/* section3 */}
