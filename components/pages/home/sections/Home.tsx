@@ -9,6 +9,7 @@ import water from "../../../../public/popularwater.svg";
 import { IoIosHeartEmpty } from "react-icons/io";
 import { SlArrowRight } from "react-icons/sl";
 import img from "../../../../public/popularimg.svg";
+import Link from "next/link";
 
 type Available = {
   id: number;
@@ -197,11 +198,12 @@ export const Home = () => {
                       <span>Прогресс</span>
                     </div>
                   </div>
-
-                  <button>
-                    Узнать больше
-                    <SlArrowRight style={{ fontWeight: "500" }} />
-                  </button>
+                  <Link href={`/home/${el.id}`}>
+                    <button>
+                      Узнать больше
+                      <SlArrowRight style={{ fontWeight: "500" }} />
+                    </button>
+                  </Link>
                 </div>
               </div>
             ))}

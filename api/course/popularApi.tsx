@@ -15,3 +15,10 @@ export const createPopular = async (payload: any) => {
 export const deletePopular = async (id: number) => {
   return axios.delete(`${API}/popular/delete/${id}`);
 };
+
+export const getPopularById = async (id: string) => {
+  const res = await fetch(`http://localhost:5005/api/v1/popular/${id}`);
+
+  const data = await res.json();
+  return data.data;
+};

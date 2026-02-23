@@ -1,6 +1,5 @@
 import HomePage from "@/components/pages/home";
-import { FC } from "react";
 
-const page: FC = () => <HomePage />;
+const page = () => <HomePage />;
 
 export default page;

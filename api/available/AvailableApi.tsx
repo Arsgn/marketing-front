@@ -15,3 +15,9 @@ export const createAvailable = async (payload: any) => {
 export const deleteAvailable = async (id: number) => {
   return axios.delete(`${API}/available/delete/${id}`);
 };
+
+export const getAvailableById = async (id: string) => {
+  const res = await axios.get(`http://localhost:5005/api/v1/available/${id}`);
+
+  return res.data.data;
+};
