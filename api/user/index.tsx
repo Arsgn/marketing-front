@@ -11,14 +11,10 @@ const useSignIn = () => {
       const response = await api.post<AUTH.SignInRes>("/user/sign-in", data);
 
       if (response.data.success) {
-        // сохраняем токены
         token.set(response.data.data.session.access_token);
         token.setRefresh(response.data.data.session.refresh_token);
-
-        // сразу обновляем zustand
         setUser(response.data.data.user);
       }
-
       return response.data;
     },
   });

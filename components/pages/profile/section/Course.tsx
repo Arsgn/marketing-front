@@ -137,7 +137,7 @@ const Course: FC = () => {
 
                   <button
                     className={scss.moreBtn}
-                    onClick={() => router.push(`/course/${el.id}`)}
+                    onClick={() => router.push(`/kursy/${el.id}`)}
                   >
                     Узнать больше <SlArrowRight />
                   </button>
