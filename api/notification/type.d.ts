@@ -2,6 +2,7 @@ declare namespace NOTIFICATION {
   interface Notification {
     id: number;
     userId: number;
+    senderId?: number;
     title: string;
     isRead: boolean;
     createdAt: string;

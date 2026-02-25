@@ -2,9 +2,12 @@
 import { useState, useEffect, useRef } from "react";
 import { IoMdNotificationsOutline } from "react-icons/io";
 import { useGetNotifications, useMarkNotificationsRead } from "@/api/notification";
+import { useRouter } from "next/navigation";
 import scss from "./Notification.module.scss";
 
 const Notification = () => {
+  const router = useRouter();
+
   const [open, setOpen] = useState(false);
   const [toast, setToast] = useState<string | null>(null);
   const prevCount = useRef(0);
@@ -25,19 +28,22 @@ const Notification = () => {
 
   const handleOpen = () => {
     setOpen((prev) => !prev);
+
     if (!open && notifications.length > 0) {
       markRead.mutate();
     }
   };
 
+  const handleClickNotification = (senderId?: number) => {
+    if (!senderId) return;
+
+    router.push(`/private-chat?user=${senderId}`);
+    setOpen(false);
+  };
+
   return (
     <div className={scss.wrapper}>
-
-      {toast && (
-        <div className={scss.toast}>
-          🔔 {toast}
-        </div>
-      )}
+      {toast && <div className={scss.toast}>🔔 {toast}</div>}
 
       <button className={scss.bell} onClick={handleOpen}>
         <IoMdNotificationsOutline size={24} />
@@ -49,18 +55,22 @@ const Notification = () => {
       {open && (
         <div className={scss.dropdown}>
           <h4>Уведомления</h4>
+
           {notifications.length === 0 ? (
             <p className={scss.empty}>Нет новых уведомлений</p>
           ) : (
             notifications.map((n) => (
-              <div key={n.id} className={scss.item}>
+              <div
+                key={n.id}
+                className={scss.item}
+                onClick={() => handleClickNotification(n.senderId)}
+              >
                 {n.title}
               </div>
             ))
           )}
         </div>
       )}
-
     </div>
   );
 };

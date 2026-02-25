@@ -30,7 +30,7 @@ const Header: FC = () => {
 
           <nav>
             <Link href="/home">Главная</Link>
-            <Link href="/about">О нас</Link>
+            <Link href="/home/about">О нас</Link>
             <Link href="/kursy">Курсы</Link>
             <Link href="/profile">Контакты</Link>
           </nav>

@@ -3,13 +3,13 @@ import { api } from "..";
 
 
 const useGetNotifications = () => {
-  return useQuery<NOTIFICATION.GetNotificationsRes, Error>({
+  return useQuery<NOTIFICATION.GetNotificationsRes>({
     queryKey: ["notifications"],
     queryFn: async () => {
-      const response = await api.get<NOTIFICATION.GetNotificationsRes>("/notification");
-      return response.data;
+      const res = await api.get("/notification");
+      return res.data;
     },
-    refetchInterval: 5000,
+    refetchInterval: 3000,
   });
 };
 

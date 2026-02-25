@@ -73,7 +73,6 @@
     }
   }
 
-  // ── Область чата ──────────────────────────────────
 
   .chatArea {
     flex: 1;
@@ -196,7 +195,6 @@
     }
   }
 
-  // ── Форма отправки ────────────────────────────────
 
   .messageForm {
     display: flex;
@@ -236,14 +234,20 @@
     }
   }
 
-  // ── Анимация ──────────────────────────────────────
+  .unreadDot {
+  width: 10px;
+  height: 10px;
+  background-color: #FFD700;
+  border-radius: 50%;
+  margin-left: auto; 
+  flex-shrink: 0;
+}
 
   @keyframes fadeIn {
     from { opacity: 0; transform: translateY(6px); }
     to   { opacity: 1; transform: translateY(0); }
   }
 
-  // ── Адаптив ───────────────────────────────────────
 
   @media (max-width: 768px) {
     .chatContainer { flex-direction: column; }
@@ -252,3 +256,4 @@
     .myMessage p, .otherMessage p { max-width: 220px; }
   }
 }
+
