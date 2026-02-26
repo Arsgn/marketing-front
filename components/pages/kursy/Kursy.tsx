@@ -7,7 +7,7 @@ const Kursy = () => {
     <div>
       <Develop />
       <Popular />
-      <Rating />
+      {/* <Rating /> */}
     </div>
   );
 };
