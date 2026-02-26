@@ -24,7 +24,6 @@ const Detail = ({ id }: Props) => {
       const data = await getPopularById(id);
       setProduct(data);
     };
-
     fetchOne();
   }, [id]);
 
@@ -32,84 +31,20 @@ const Detail = ({ id }: Props) => {
 
   return (
     <div className={scss.Detail}>
-      <div
-        className={scss.contetnt}
-        style={{
-          display: "flex",
-          flexDirection: "column",
-        }}
-      >
-        <div
-          className={scss.text}
-          style={{
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            flexDirection: "column",
-            gap: "8px",
-          }}
-        >
-          <h1
-            style={{
-              fontFamily: "Rubik",
-              fontWeight: "700",
-              fontSize: "50px",
-              lineHeight: "70px",
-              letterSpacing: "0%",
-            }}
-          >
-            Маркетинг
-          </h1>
-          <h5
-            style={{
-              fontFamily: "Rubik",
-              fontWeight: "400",
-              fontSize: "16px",
-              lineHeight: "30px",
-              letterSpacing: "0",
-              textAlign: "center",
-            }}
-          >
-            Мы предоставляем множество функций, которые вы можете <br />
-            использовать. Постепенное накопление информация{" "}
+      <div className={scss.content}>
+        <div className={scss.text}>
+          <h1>Маркетинг</h1>
+          <h5>
+            Мы предоставляем множество функций, которые вы можете
+            использовать. Постепенное накопление информация
           </h5>
         </div>
-        <div
-          className={scss.main}
-          style={{
-            display: "flex",
-            alignItems: "start",
-            marginTop: "37px",
-            gap: "52px",
-            marginLeft: "38px",
-          }}
-        >
-          <img src={product.image} width={400} />
+
+        <div className={scss.main}>
+          <img src={product.image} alt={product.title} className={scss.image} />
           <div className={scss.num}>
-            <h1
-              style={{
-                fontFamily: "Rubik",
-                fontWeight: "500",
-                fontSize: "25px",
-                lineHeight: "30px",
-                letterSpacing: "0%",
-              }}
-            >
-              {product.title}
-            </h1>
-            <p
-              style={{
-                fontFamily: "Rubik",
-                fontWeight: "400",
-                fontStyle: "Regular",
-                fontSize: "16p",
-                lineHeight: "22.86px",
-                letterSpacing: "0%",
-                verticalAlign: "middle",
-              }}
-            >
-              {product.description}
-            </p>
+            <h2>{product.title}</h2>
+            <p>{product.description}</p>
           </div>
         </div>
       </div>

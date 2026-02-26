@@ -39,11 +39,18 @@ const Popular = () => {
   const { mutate: addFavorite } = useAddFavorite();
   const { mutate: removeFavorite } = useRemoveFavorite();
 
+  // ✅ Ограничение description до 1 предложения
+  const getFirstSentence = (text: string) => {
+    if (!text) return "";
+    const match = text.match(/[^.!?]+[.!?]/);
+    return match ? match[0] : text;
+  };
+
   useEffect(() => {
     if (favoritesData?.data) {
       setFavoriteIds(favoritesData.data.map((f) => f.popularId));
     }
-  }, [favoritesData]);
+  }, [favoritesData, setFavoriteIds]);
 
   useEffect(() => {
     const fetchPopular = async () => {
@@ -63,6 +70,7 @@ const Popular = () => {
   const handleHeartClick = (e: React.MouseEvent, popularId: number) => {
     e.stopPropagation();
     if (!user) return alert("Войдите в аккаунт");
+
     if (isFavorite(popularId)) {
       removeFavorite({ popularId });
     } else {
@@ -82,6 +90,7 @@ const Popular = () => {
           >
             Все Курсы
           </button>
+
           {categories.map((cat) => (
             <button
               key={cat.id}
@@ -99,6 +108,7 @@ const Popular = () => {
               <div className={scss.img_wrapper}>
                 <img src={el.image} alt={el.title} />
                 <h5>{el.price === 0 ? "Бесплатно" : `${el.price} сом`}</h5>
+
                 <h4
                   onClick={(e) => handleHeartClick(e, el.id)}
                   className={isFavorite(el.id) ? scss.favorited : ""}
@@ -109,16 +119,21 @@ const Popular = () => {
 
               <div className={scss.text}>
                 <h2>{el.title}</h2>
-                <p>{el.description}</p>
+
+                {/* ✅ Показываем только 1 предложение */}
+                <p>{getFirstSentence(el.description)}</p>
+
                 <div className={scss.icon}>
                   <div className={scss.url}>
                     <Image src={time} alt="time" width={15} />
                     <span>22ч 30мин</span>
                   </div>
+
                   <div className={scss.url}>
                     <Image src={water} alt="lessons" width={15} />
                     <span>64 уроков</span>
                   </div>
+
                   <div className={scss.url}>
                     <Image src={img} alt="progress" width={15} />
                     <span>Прогресс</span>
