@@ -113,6 +113,43 @@ const Detail = ({ id }: Props) => {
           </div>
         </div>
       </div>
+
+      <div
+        className={scss.vedeo}
+        style={{
+          display: "flex",
+          alignItems: "center",
+          marginTop: "30px",
+          gap: "20px",
+        }}
+      >
+        <iframe
+          width="500"
+          height="300"
+          src="https://www.youtube.com/embed/QusJ4fpWQwA"
+          title="YouTube video"
+          frameBorder="0"
+          allowFullScreen
+        ></iframe>
+        <iframe
+          width="500"
+          height="300"
+          src="https://www.youtube.com/embed/QusJ4fpWQwA"
+          title="YouTube video"
+          frameBorder="0"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          allowFullScreen
+        ></iframe>
+        <iframe
+          width="500"
+          height="300"
+          src="https://www.youtube.com/embed/QusJ4fpWQwA"
+          title="YouTube video"
+          frameBorder="0"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          allowFullScreen
+        ></iframe>
+      </div>
     </div>
   );
 };
