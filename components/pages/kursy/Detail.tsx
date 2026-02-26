@@ -35,8 +35,8 @@ const Detail = ({ id }: Props) => {
         <div className={scss.text}>
           <h1>Маркетинг</h1>
           <h5>
-            Мы предоставляем множество функций, которые вы можете
-            использовать. Постепенное накопление информация
+            Мы предоставляем множество функций, которые вы можете использовать.
+            Постепенное накопление информация
           </h5>
         </div>
 
@@ -49,41 +49,25 @@ const Detail = ({ id }: Props) => {
         </div>
       </div>
 
-      <div
-        className={scss.vedeo}
-        style={{
-          display: "flex",
-          alignItems: "center",
-          marginTop: "30px",
-          gap: "20px",
-        }}
-      >
-        <iframe
-          width="500"
-          height="300"
-          src="https://www.youtube.com/embed/QusJ4fpWQwA"
-          title="YouTube video"
-          frameBorder="0"
-          allowFullScreen
-        ></iframe>
-        <iframe
-          width="500"
-          height="300"
-          src="https://www.youtube.com/embed/QusJ4fpWQwA"
-          title="YouTube video"
-          frameBorder="0"
-          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-          allowFullScreen
-        ></iframe>
-        <iframe
-          width="500"
-          height="300"
-          src="https://www.youtube.com/embed/QusJ4fpWQwA"
-          title="YouTube video"
-          frameBorder="0"
-          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-          allowFullScreen
-        ></iframe>
+      <div className={scss.videos}>
+        {[
+          "https://www.youtube.com/embed/aO4Mnz485uM",
+          "https://www.youtube.com/embed/QusJ4fpWQwA",
+          "https://www.youtube.com/embed/g2nQ4YWKboY",
+        ].map((src, i) => (
+          <div key={i} className={scss.videoCard}>
+            <div className={scss.videoWrapper}>
+              <iframe
+                src={src}
+                title={`YouTube video ${i + 1}`}
+                frameBorder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowFullScreen
+              />
+            </div>
+            <div className={scss.videoLabel}>Урок {i + 1}</div>
+          </div>
+        ))}
       </div>
     </div>
   );

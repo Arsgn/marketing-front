@@ -39,7 +39,6 @@ const Popular = () => {
   const { mutate: addFavorite } = useAddFavorite();
   const { mutate: removeFavorite } = useRemoveFavorite();
 
-  // ✅ Ограничение description до 1 предложения
   const getFirstSentence = (text: string) => {
     if (!text) return "";
     const match = text.match(/[^.!?]+[.!?]/);

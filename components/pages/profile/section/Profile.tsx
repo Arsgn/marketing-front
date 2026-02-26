@@ -115,7 +115,10 @@ const Profile: FC = () => {
                             <span>Прогресс</span>
                           </div>
                         </div>
-                        <button className={scss.more_btn}>
+                        <button
+                          className={scss.more_btn}
+                          onClick={() => router.push(`/kursy/${fav.popularId}`)}
+                        >
                           Узнать больше <SlArrowRight />
                         </button>
                       </div>

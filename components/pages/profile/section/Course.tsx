@@ -36,6 +36,12 @@ const Course: FC = () => {
   const { mutate: addFavorite } = useAddFavorite();
   const { mutate: removeFavorite } = useRemoveFavorite();
 
+  const getFirstSentence = (text: string) => {
+    if (!text) return "";
+    const match = text.match(/[^.!?]+[.!?]/);
+    return match ? match[0] : text;
+  };
+
   useEffect(() => {
     if (favoritesData?.data) {
       setFavoriteIds(favoritesData.data.map((f) => f.popularId));
@@ -118,7 +124,7 @@ const Course: FC = () => {
 
                 <div className={scss.cardInfo}>
                   <h2>{el.title}</h2>
-                  <p>{el.description}</p>
+                  <p>{getFirstSentence(el.description)}</p>
 
                   <div className={scss.meta}>
                     <div className={scss.metaItem}>
