@@ -6,6 +6,12 @@ declare namespace NOTIFICATION {
     title: string;
     isRead: boolean;
     createdAt: string;
+
+    sender?: {
+      id: number;
+      name: string | null;
+      avatar: string | null;
+    };
   }
 
   interface GetNotificationsRes {

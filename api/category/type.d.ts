@@ -1,5 +1,5 @@
 namespace CATEGORY {
-  export interface IPopular {
+  interface IPopular {
     id: number;
     title: string;
     description: string;
@@ -9,7 +9,7 @@ namespace CATEGORY {
     updatedAt: string;
   }
 
-  export interface ICategory {
+  interface ICategory {
     id: number;
     name: string;
     createdAt: string;
@@ -17,26 +17,36 @@ namespace CATEGORY {
     populars: IPopular[];
   }
 
-  export interface GetCategoriesRes {
+  interface GetCategoriesRes {
     success: boolean;
     data: ICategory[];
   }
 
-interface CreateCategoryReq {
+  interface CreateCategoryReq {
     name: string;
   }
 
-interface CreateCategoryRes {
+  interface CreateCategoryRes {
     success: boolean;
     data: ICategory;
   }
 
-interface UpdateCategoryReq {
+  interface UpdateCategoryReq {
     id: number;
     name: string;
   }
 
-interface DeleteCategoryReq {
+  interface UpdateCategoryRes {
+    success: boolean;
+    data: ICategory;
+  }
+
+  interface DeleteCategoryReq {
     id: number;
+  }
+
+  interface DeleteCategoryRes {
+    success: boolean;
+    message: string;
   }
 }

@@ -1,12 +1,15 @@
 "use client";
 import { useState, useEffect, useRef } from "react";
 import { IoMdNotificationsOutline } from "react-icons/io";
-import { useGetNotifications, useMarkNotificationsRead } from "@/api/notification";
+import {
+  useGetNotifications,
+  useMarkNotificationsRead,
+} from "@/api/notification";
 import { useRouter } from "next/navigation";
 import scss from "./Notification.module.scss";
 
 const Notification = () => {
-  const router = useRouter();
+  const router = useRouter(); 
 
   const [open, setOpen] = useState(false);
   const [toast, setToast] = useState<string | null>(null);
@@ -19,13 +22,20 @@ const Notification = () => {
 
   useEffect(() => {
     if (notifications.length > prevCount.current && notifications.length > 0) {
-      setToast(notifications[0].title);
+      const latest = notifications[0];
+
+      if (latest.sender?.name) {
+        setToast(`У вас новое сообщение от ${latest.sender.name}`);
+      } else {
+        setToast("У вас новое сообщение");
+      }
+
       const timer = setTimeout(() => setToast(null), 4000);
       return () => clearTimeout(timer);
     }
-    prevCount.current = notifications.length;
-  }, [notifications.length]);
 
+    prevCount.current = notifications.length;
+  }, [notifications]);
   const handleOpen = () => {
     setOpen((prev) => !prev);
 

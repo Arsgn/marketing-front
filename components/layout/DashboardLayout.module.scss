@@ -12,6 +12,9 @@
   border-right: 1px solid #eee;
   display: flex;
   flex-direction: column;
+  position: sticky;
+  top: 0;
+  height: 100vh;
 }
 
 .logo {
@@ -64,6 +67,9 @@
   justify-content: flex-end;
   gap: 25px;
   padding: 0 30px;
+  position: sticky;
+  top: 0;
+  z-index: 10;
 }
 
 .content {
@@ -115,10 +121,10 @@
   background: none;
   font-size: 16px;
 
-  
   &:hover {
     transition: 0.2s;
     color: #23a6f0;
     cursor: pointer;
   }
 }
+

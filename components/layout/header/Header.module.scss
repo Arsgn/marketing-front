@@ -1,11 +1,15 @@
 .Header {
   color: #4f5665;
   padding-block: 23px;
-  
-  h2{
-     font-family: 'Montserrat', sans-serif;
-     font-weight: 700;
-     font-size: 24px;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  background: white;
+
+  h2 {
+    font-family: "Montserrat", sans-serif;
+    font-weight: 700;
+    font-size: 24px;
   }
 
   .content {
@@ -24,9 +28,9 @@
     a {
       color: #4f5665;
     }
-    a:hover{
-        color: #23A6F0;
-        transition: 0.2s;
+    a:hover {
+      color: #23a6f0;
+      transition: 0.2s;
     }
   }
 
@@ -35,35 +39,35 @@
     width: 260px;
     justify-content: space-between;
 
-    .SignIn{
-        background: none;
-        color:#23A6F0;
-        font-weight: 700;
-        font-size: 16px;
-        padding-inline: 24px;
-        border-radius: 7px;
+    .SignIn {
+      background: none;
+      color: #23a6f0;
+      font-weight: 700;
+      font-size: 16px;
+      padding-inline: 24px;
+      border-radius: 7px;
     }
-    .SignIn:hover{
-        transition: 0.2s;
-        cursor: pointer;
-        color: #4f5665;
-        background: #dcdcdcc3;
-    }
-
-    .Join{
-        border-radius: 7px;
-        background: #23A6F0;
-        color:#ffffff;
-        font-weight: 700;
-        font-size: 16px;
-        padding: 15px 24px 15px 24px;
+    .SignIn:hover {
+      transition: 0.2s;
+      cursor: pointer;
+      color: #4f5665;
+      background: #dcdcdcc3;
     }
 
-     .Join:hover{
-        transition: 0.2s;
-        cursor: pointer;
-        color: #23A6F0;
-        background: #dcdcdcc3;
+    .Join {
+      border-radius: 7px;
+      background: #23a6f0;
+      color: #ffffff;
+      font-weight: 700;
+      font-size: 16px;
+      padding: 15px 24px 15px 24px;
+    }
+
+    .Join:hover {
+      transition: 0.2s;
+      cursor: pointer;
+      color: #23a6f0;
+      background: #dcdcdcc3;
     }
   }
 }
