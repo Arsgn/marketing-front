@@ -7,23 +7,68 @@
   padding-top: 130px;
   margin-bottom: -60px;
 
+  @media (max-width: 1024px) {
+    padding-top: 80px;
+  }
+
+  @media (max-width: 768px) {
+    padding-top: 60px;
+    margin-bottom: -20px;
+    gap: 14px;
+  }
+
   h1 {
     font-size: 50px;
     font-weight: 700;
     font-family: "Rubik", sans-serif;
     color: #0b132a;
+
+    @media (max-width: 1024px) {
+      font-size: 38px;
+    }
+
+    @media (max-width: 768px) {
+      font-size: 28px;
+    }
+
+    @media (max-width: 480px) {
+      font-size: 22px;
+    }
   }
+
   p {
     color: #4f5665;
     font-weight: 400;
     line-height: 28px;
     width: 555px;
+
+    @media (max-width: 1024px) {
+      width: 100%;
+    }
+
+    @media (max-width: 768px) {
+      font-size: 14px;
+      line-height: 22px;
+    }
   }
 
   .email {
     padding: 30px 0 0 0;
     display: flex;
     width: 80%;
+
+    @media (max-width: 1024px) {
+      width: 100%;
+    }
+
+    @media (max-width: 768px) {
+      padding-top: 16px;
+    }
+
+    @media (max-width: 480px) {
+      flex-direction: column;
+      gap: 10px;
+    }
 
     input {
       width: 100%;
@@ -32,7 +77,18 @@
       border-radius: 5px;
       font-size: 18px;
       background: white;
+
+      @media (max-width: 768px) {
+        padding: 15px;
+        font-size: 15px;
+      }
+
+      @media (max-width: 480px) {
+        border-radius: 5px;
+        margin-left: 0;
+      }
     }
+
     &::placeholder {
       font-size: 18px;
     }
@@ -46,11 +102,25 @@
       cursor: pointer;
       border-radius: 5px;
       margin-left: -5px;
-    }
-    button:hover {
-      transition: 0.2s;
-      color: #23a6f0;
-      background: #dcdcdc;
+      white-space: nowrap;
+
+      @media (max-width: 768px) {
+        font-size: 15px;
+        padding-inline: 18px;
+      }
+
+      @media (max-width: 480px) {
+        margin-left: 0;
+        padding: 15px;
+        border-radius: 5px;
+        width: 100%;
+      }
+
+      &:hover {
+        transition: 0.2s;
+        color: #23a6f0;
+        background: #dcdcdc;
+      }
     }
   }
 }

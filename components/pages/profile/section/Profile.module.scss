@@ -1,68 +1,145 @@
-.home{
-    color: black;
-    width: 1130px;
+.Profile {
+  padding-block: 40px;
 
-    .block{
-        display: flex;
-        align-items: end;
-        justify-content: space-between;
-        padding-inline: 25px;
-        margin-top: -65px;
-        border: 0.5px solid black;
-        border-radius: 7px;
-        padding-bottom: 30px;
-        
+  @media (max-width: 768px) {
+    padding-block: 24px;
+  }
+}
 
-        .box{
-            display: flex;
-            align-items: end;
+// ── Шапка профиля ─────────────────────────────────
+.home {
+  color: black;
+  width: 100%;
 
-            .avatar{
-                width: 160px;
-                height: 160px;
-                border-radius: 50%;
-            }
+  img:first-child {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 10px 10px 0 0;
 
-            h1{
-                padding-bottom: 20px;
-            }
-        }
-        .edit{
-            padding: 15px 20px;
-            background: #2ea9f0;
-            color: white;
-            border-radius: 5px;
-            cursor: pointer;
-
-            &:hover{
-                transition: 0.2s;
-                background: rgb(222, 222, 222);
-                color: #23a6f0;
-            }
-        }
+    @media (max-width: 480px) {
+      height: 130px;
     }
-}
+  }
 
-
-
-.text{
+  .block {
     display: flex;
-    flex-direction: column;
-    gap: 10px;
-    padding-left: 20px;
+    align-items: flex-end;
+    justify-content: space-between;
+    padding-inline: 25px;
+    padding-bottom: 20px;
+    margin-top: -65px;
+    border: 0.5px solid #e0e0e0;
+    border-radius: 0 0 7px 7px;
+    background: white;
+
+    @media (max-width: 768px) {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 16px;
+      margin-top: -40px;
+      padding-inline: 16px;
+    }
+
+    .box {
+      display: flex;
+      align-items: flex-end;
+      gap: 0;
+
+      @media (max-width: 480px) {
+        align-items: center;
+      }
+
+      .avatar {
+        width: 160px;
+        height: 160px;
+        border-radius: 50%;
+        border: 4px solid white;
+        object-fit: cover;
+        flex-shrink: 0;
+
+        @media (max-width: 768px) {
+          width: 110px;
+          height: 110px;
+        }
+
+        @media (max-width: 480px) {
+          width: 80px;
+          height: 80px;
+        }
+      }
+    }
+
+    .edit {
+      padding: 12px 24px;
+      background: #2ea9f0;
+      color: white;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 14px;
+      font-weight: 600;
+      white-space: nowrap;
+      transition: 0.2s;
+      margin-bottom: 10px;
+
+      @media (max-width: 768px) {
+        width: 100%;
+        text-align: center;
+        margin-bottom: 0;
+      }
+
+      &:hover {
+        background: rgb(222, 222, 222);
+        color: #23a6f0;
+      }
+    }
+  }
 }
 
+.text {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding-left: 16px;
+
+  h2 {
+    font-size: 20px;
+    font-weight: 700;
+    color: #0b132a;
+
+    @media (max-width: 480px) {
+      font-size: 16px;
+    }
+  }
+
+  p {
+    font-size: 14px;
+    color: #737373;
+  }
+}
+
+// ── Табы ──────────────────────────────────────────
 .tabs_section {
-  margin-top: 30px;
-  border: 0.5px solid #000000;
+  margin-top: 24px;
+  border: 0.5px solid #e0e0e0;
   border-radius: 10px;
   padding: 25px;
-  width: 1130px;
+  width: 100%;
+
+  @media (max-width: 480px) {
+    padding: 16px;
+  }
 
   .tabs {
     display: flex;
     gap: 10px;
     margin-bottom: 30px;
+    flex-wrap: wrap;
+
+    @media (max-width: 480px) {
+      gap: 8px;
+      margin-bottom: 20px;
+    }
 
     .tab {
       padding: 10px 25px;
@@ -72,6 +149,13 @@
       cursor: pointer;
       font-size: 14px;
       transition: 0.2s;
+
+      @media (max-width: 480px) {
+        padding: 8px 16px;
+        font-size: 13px;
+        flex: 1;
+        text-align: center;
+      }
 
       &:hover {
         border-color: #23a6f0;
@@ -88,6 +172,13 @@
       cursor: pointer;
       font-size: 14px;
       font-weight: 600;
+
+      @media (max-width: 480px) {
+        padding: 8px 16px;
+        font-size: 13px;
+        flex: 1;
+        text-align: center;
+      }
     }
   }
 
@@ -102,124 +193,137 @@
     display: flex;
     flex-wrap: wrap;
     gap: 25px;
+
+    @media (max-width: 480px) {
+      gap: 16px;
+    }
+  }
+}
+
+// ── Карточка курса ────────────────────────────────
+.card {
+  width: 220px;
+  border-radius: 14px;
+  overflow: hidden;
+  box-shadow: 0px 2px 12px rgba(34, 60, 80, 0.15);
+  background: #fff;
+  transition: 0.3s;
+
+  @media (max-width: 768px) {
+    width: calc(50% - 13px);
   }
 
-  .card {
-    width: 220px;
-    border-radius: 14px;
-    overflow: hidden;
-    box-shadow: 0px 2px 12px rgba(34, 60, 80, 0.15);
-    background: #fff;
-    transition: 0.3s;
+  @media (max-width: 480px) {
+    width: 100%;
+  }
 
-    &:hover {
-      transform: translateY(-3px);
-    }
+  &:hover {
+    transform: translateY(-3px);
+  }
 
-    .card_img {
-      position: relative;
+  .card_img {
+    position: relative;
+    width: 100%;
+    height: 150px;
+
+    img {
       width: 100%;
-      height: 150px;
+      height: 100%;
+      object-fit: cover;
+    }
 
-      img {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
+    h5 {
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      padding: 3px 8px;
+      background: #e74040;
+      color: #fff;
+      font-size: 12px;
+      border-radius: 4px;
+    }
+
+    h4 {
+      position: absolute;
+      bottom: -14px;
+      left: 14px;
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      background: #e74040;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 14px;
+      cursor: pointer;
+      box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.2);
+      transition: 0.2s;
+
+      &:hover {
+        background: #c0392b;
       }
+    }
+  }
 
-      h5 {
-        position: absolute;
-        top: 10px;
-        left: 10px;
-        padding: 3px 8px;
-        background: #e74040;
-        color: #fff;
-        font-size: 12px;
-        border-radius: 4px;
-      }
+  .card_text {
+    padding: 20px 12px 15px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    text-align: left;
 
-      h4 {
-        position: absolute;
-        bottom: -14px;
-        left: 14px;
-        width: 30px;
-        height: 30px;
-        border-radius: 50%;
-        background: #e74040;
-        color: #fff;
+    h2 {
+      font-size: 13px;
+      font-weight: 700;
+      color: #252b42;
+    }
+
+    p {
+      font-size: 11px;
+      color: #737373;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+
+    .icon {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+
+      .url {
         display: flex;
         align-items: center;
-        justify-content: center;
-        font-size: 14px;
-        cursor: pointer;
-        box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.2);
-        transition: 0.2s;
+        gap: 3px;
 
-        &:hover {
-          background: #c0392b;
+        span {
+          font-size: 10px;
+          color: #737373;
         }
       }
     }
 
-    .card_text {
-      padding: 20px 12px 15px;
+    .more_btn {
+      margin-top: 8px;
       display: flex;
-      flex-direction: column;
-      gap: 8px;
-      text-align: left;
+      align-items: center;
+      justify-content: center;
+      gap: 4px;
+      width: 100%;
+      height: 34px;
+      border-radius: 21px;
+      border: 2px solid #23a6f0;
+      color: #23a6f0;
+      background: none;
+      font-size: 11px;
+      cursor: pointer;
+      transition: 0.2s;
 
-      h2 {
-        font-size: 13px;
-        font-weight: 700;
-        color: #252b42;
-      }
-
-      p {
-        font-size: 11px;
-        color: #737373;
-        display: -webkit-box;
-        -webkit-line-clamp: 2;
-        -webkit-box-orient: vertical;
-        overflow: hidden;
-      }
-
-      .icon {
-        display: flex;
-        gap: 8px;
-        flex-wrap: wrap;
-
-        .url {
-          display: flex;
-          align-items: center;
-          gap: 3px;
-
-          span {
-            font-size: 10px;
-            color: #737373;
-          }
-        }
-      }
-
-      .more_btn {
-        margin-top: 8px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        gap: 4px;
-        width: 130px;
-        height: 34px;
-        border-radius: 21px;
-        border: 2px solid #23a6f0;
-        color: #23a6f0;
-        background: none;
-        font-size: 11px;
-        cursor: pointer;
-        transition: 0.2s;
-
-        &:hover {
-          background: #23a6f0;
-          color: #fff;
-        }
+      &:hover {
+        background: #23a6f0;
+        color: #fff;
       }
     }
   }

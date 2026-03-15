@@ -1,16 +1,16 @@
 "use client";
-import { ReactNode } from "react";
+import { ReactNode, useState } from "react";
 import scss from "./DashboardLayout.module.scss";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { IoIosSettings} from "react-icons/io";
+import { IoIosSettings } from "react-icons/io";
 import { useRouter } from "next/navigation";
 import { useAuthStore } from "@/store/auth.store";
 import { FaStar, FaUser } from "react-icons/fa";
 import { MdOutlineChat } from "react-icons/md";
 import { IoFolderOpen, IoHome } from "react-icons/io5";
 import { BiLogOut } from "react-icons/bi";
-import { useSignOut } from "@/api/user"; 
+import { useSignOut } from "@/api/user";
 import { token } from "@/api";
 import Notification from "../pages/profile/section/Notification";
 
@@ -21,8 +21,9 @@ interface Props {
 const DashboardLayout = ({ children }: Props) => {
   const pathname = usePathname();
   const router = useRouter();
-  const { isAuth, user, clearUser } = useAuthStore();
-  const signOut = useSignOut(); 
+  const { user, clearUser } = useAuthStore();
+  const signOut = useSignOut();
+  const [isOpen, setIsOpen] = useState(false);
 
   const handleLogout = () => {
     signOut.mutate(undefined, {
@@ -35,99 +36,82 @@ const DashboardLayout = ({ children }: Props) => {
         clearUser();
         token.remove();
         router.push("/");
-      }
+      },
     });
   };
 
+  const closeMenu = () => setIsOpen(false);
+
+  const navLinks = [
+    { icon: <FaUser />, href: "/profile", label: "Профиль", match: "/profile" },
+    { icon: <IoFolderOpen />, href: "/product", label: "Курсы", match: "/course" },
+    { icon: <MdOutlineChat />, href: "/private-chat", label: "Чат", match: "/chat" },
+    { icon: <IoHome />, href: "/", label: "Главная", match: "/" },
+    { icon: <FaStar />, href: "", label: "Оценить", match: "" },
+    { icon: <IoIosSettings />, href: "/settings", label: "Настройки", match: "/settings" },
+  ];
+
   return (
     <div className={scss.wrapper}>
-      <aside className={scss.sidebar}>
+
+      {/* Затемнение */}
+      <div
+        className={`${scss.overlay} ${isOpen ? scss.open : ""}`}
+        onClick={closeMenu}
+      />
+
+      {/* Сайдбар */}
+      <aside className={`${scss.sidebar} ${isOpen ? scss.open : ""}`}>
         <h2 className={scss.logo}>Logo</h2>
 
         <nav className={scss.nav}>
-          <div className={scss.icons}>
-            <FaUser />
-            <Link
-              href="/profile"
-              className={pathname === "/profile" ? scss.active : ""}
-            >
-              Профиль
-            </Link>
-          </div>
-
-          <div className={scss.icons}>
-            <IoFolderOpen />
-            <Link
-              href="/product"
-              className={pathname === "/course" ? scss.active : ""}
-            >
-              Курсы
-            </Link>
-          </div>
-
-          <div className={scss.icons}>
-            <MdOutlineChat />
-            <Link 
-              href="/private-chat"
-              className={pathname === "/chat" ? scss.active : ""}
-            >
-              Чат
-            </Link>
-          </div>
-
-          <div className={scss.icons}>
-            <IoHome />
-            <Link 
-              href="/"
-              className={pathname === "/home" ? scss.active : ""}
-            >
-              Главная
-            </Link>
-          </div>
-
-          <div className={scss.icons}>
-            <FaStar />
-            <Link 
-              href=""
-              className={pathname === "/home" ? scss.active : ""}
-            >
-              Оценить
-            </Link>
-          </div>
-
-          <div className={scss.icons}>
-            <IoIosSettings />
-            <Link 
-              href="/settings"
-              className={pathname === "/settings" ? scss.active : ""}
-            >
-              Настройки
-            </Link>
-          </div>
+          {navLinks.map(({ icon, href, label, match }) => (
+            <div key={label} className={scss.icons} onClick={closeMenu}>
+              {icon}
+              <Link
+                href={href}
+                className={pathname === match ? scss.active : ""}
+              >
+                {label}
+              </Link>
+            </div>
+          ))}
 
           <div className={scss.icons}>
             <BiLogOut />
-            <button 
-              onClick={handleLogout}
-              className={scss.logoutBtn}
-            >
+            <button onClick={handleLogout} className={scss.logoutBtn}>
               Выйти
             </button>
           </div>
         </nav>
       </aside>
 
+      {/* Основной контент */}
       <div className={scss.main}>
         <header className={scss.header}>
-          <div className={scss.notification}>
-            <Notification />
-          </div>
-          <div className={scss.profile}>
-            <img
-              src={user?.avatar || "/avatar.png"}
-              onClick={() => router.push("/profile")}
-              alt="profile"
-            />
+
+          {/* Бургер */}
+          <button
+            className={`${scss.burger} ${isOpen ? scss.open : ""}`}
+            onClick={() => setIsOpen(!isOpen)}
+            aria-label="Меню"
+          >
+            <span />
+            <span />
+            <span />
+          </button>
+
+          <div className={scss.headerRight}>
+            <div className={scss.notification}>
+              <Notification />
+            </div>
+            <div className={scss.profile}>
+              <img
+                src={user?.avatar || "/avatar.png"}
+                onClick={() => router.push("/profile")}
+                alt="profile"
+              />
+            </div>
           </div>
         </header>
 

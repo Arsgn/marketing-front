@@ -26,8 +26,7 @@ const PrivateChatPage: FC = () => {
     selectedUserId || 0,
     !!selectedUserId && !isPublicChat,
   );
-  const { mutateAsync: sendPrivateMessage, isPending } =
-    useSendPrivateMessage();
+  const { mutateAsync: sendPrivateMessage, isPending } = useSendPrivateMessage();
 
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -36,12 +35,8 @@ const PrivateChatPage: FC = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!message.trim()) return;
-
     if (isPublicChat) {
-      sendPublicMessage.mutate(
-        { message },
-        { onSuccess: () => setMessage("") },
-      );
+      sendPublicMessage.mutate({ message }, { onSuccess: () => setMessage("") });
     } else {
       if (!selectedUserId) return;
       await sendPrivateMessage({ receiverId: selectedUserId, message });
@@ -55,52 +50,71 @@ const PrivateChatPage: FC = () => {
   return (
     <section className={scss.PrivateChatPage}>
       <div className={scss.chatContainer}>
+
+        {/* Боковая панель */}
         <div className={scss.contactsList}>
           <h2>Сообщения</h2>
 
+          {/* Десктоп — обычный список */}
           <div
             className={`${scss.contactItem} ${isPublicChat ? scss.active : ""}`}
-            onClick={() => {
-              setIsPublicChat(true);
-              setSelectedUserId(null);
-            }}
+            onClick={() => { setIsPublicChat(true); setSelectedUserId(null); }}
           >
             <IoPeople size={24} />
             <span>Общий чат</span>
           </div>
-
           {otherUsers.map((contact) => (
             <div
               key={contact.id}
               className={`${scss.contactItem} ${selectedUserId === contact.id && !isPublicChat ? scss.active : ""}`}
-              onClick={() => {
-                setIsPublicChat(false);
-                setSelectedUserId(contact.id);
-              }}
+              onClick={() => { setIsPublicChat(false); setSelectedUserId(contact.id); }}
             >
-              <img
-                src={contact.avatar || "/avatar.svg"}
-                alt={contact.name || "User"}
-              />
+              <img src={contact.avatar || "/avatar.svg"} alt={contact.name || "User"} />
               <span>{contact.name || "Пользователь"}</span>
             </div>
           ))}
+
+          {/* Мобиле — горизонтальная полоса аватаров */}
+          <div className={scss.contactsRow}>
+            <div
+              className={`${scss.contactAvatar} ${isPublicChat ? scss.active : ""}`}
+              onClick={() => { setIsPublicChat(true); setSelectedUserId(null); }}
+            >
+              <div className={scss.avatarIcon}>
+                <IoPeople size={22} />
+              </div>
+              <span className={scss.avatarName}>Общий</span>
+            </div>
+
+            {otherUsers.map((contact) => (
+              <div
+                key={contact.id}
+                className={`${scss.contactAvatar} ${selectedUserId === contact.id && !isPublicChat ? scss.active : ""}`}
+                onClick={() => { setIsPublicChat(false); setSelectedUserId(contact.id); }}
+              >
+                <img
+                  className={scss.avatarImg}
+                  src={contact.avatar || "/avatar.svg"}
+                  alt={contact.name || "User"}
+                />
+                <span className={scss.avatarName}>
+                  {contact.name || "User"}
+                </span>
+              </div>
+            ))}
+          </div>
         </div>
 
+        {/* Область чата */}
         <div className={scss.chatArea}>
           {isPublicChat ? (
             <>
               <h2>Общий чат</h2>
-
               <div className={scss.messagesArea}>
                 {publicMessagesData?.data?.map((msg) => (
                   <div
                     key={msg.id}
-                    className={
-                      user?.id === msg.userId
-                        ? scss.myMessage
-                        : scss.otherMessage
-                    }
+                    className={user?.id === msg.userId ? scss.myMessage : scss.otherMessage}
                   >
                     <img src={msg.user.avatar || "/avatar.svg"} alt="" />
                     <div>
@@ -115,16 +129,11 @@ const PrivateChatPage: FC = () => {
           ) : selectedUser ? (
             <>
               <h2>{selectedUser.name}</h2>
-
               <div className={scss.messagesArea}>
                 {privateMessageData?.data?.map((msg) => (
                   <div
                     key={msg.id}
-                    className={
-                      user?.id === msg.senderId
-                        ? scss.myMessage
-                        : scss.otherMessage
-                    }
+                    className={user?.id === msg.senderId ? scss.myMessage : scss.otherMessage}
                   >
                     <p>{msg.message}</p>
                   </div>
@@ -133,7 +142,7 @@ const PrivateChatPage: FC = () => {
               </div>
             </>
           ) : (
-            <p>Выберите чат слева</p>
+            <p>Выберите чат</p>
           )}
 
           {(isPublicChat || selectedUser) && (

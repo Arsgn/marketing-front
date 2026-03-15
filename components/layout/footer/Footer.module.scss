@@ -2,14 +2,30 @@
   display: flex;
   font-family: "Rubik", sans-serif;
   padding: 150px 0 100px 0;
-  background: #F5F9FC;
+  background: #f5f9fc;
   z-index: -1;
 
+  @media (max-width: 1024px) {
+    padding: 80px 0 60px 0;
+  }
+
+  @media (max-width: 768px) {
+    padding: 60px 0 40px 0;
+  }
 
   .content {
     display: flex;
     align-items: start;
     justify-content: space-between;
+
+    @media (max-width: 1024px) {
+      flex-direction: column;
+      gap: 50px;
+    }
+
+    @media (max-width: 480px) {
+      gap: 36px;
+    }
   }
 
   h1 {
@@ -17,6 +33,10 @@
     font-family: "Rubik", sans-serif;
     font-weight: 700;
     color: #0b132a;
+
+    @media (max-width: 480px) {
+      font-size: 26px;
+    }
   }
 
   p {
@@ -34,10 +54,20 @@
     align-items: start;
     justify-content: space-between;
     width: 650px;
+
+    @media (max-width: 1024px) {
+      width: 100%;
+    }
+
+    @media (max-width: 480px) {
+      flex-wrap: wrap;
+      gap: 30px;
+    }
   }
 
   ul li:first-child {
     font-weight: 700;
+    color: #0b132a;
   }
 
   ul li {
@@ -46,18 +76,33 @@
     line-height: 40px;
     color: #4f5665;
     cursor: pointer;
-  }
+    white-space: nowrap;
 
-  ul li:hover{
-    color: #23a6f0;
+    &:hover {
+      color: #23a6f0;
+    }
   }
 
   .block {
     width: 335px;
+
+    @media (max-width: 1024px) {
+      width: 100%;
+      max-width: 400px;
+    }
+
+    @media (max-width: 480px) {
+      max-width: 100%;
+    }
   }
+
   .top {
     display: flex;
     gap: 28px;
+
+    @media (max-width: 480px) {
+      gap: 16px;
+    }
 
     button {
       background: #23a6f0;
@@ -65,6 +110,13 @@
       width: 33px;
       height: 33px;
       border-radius: 50%;
+      flex-shrink: 0;
+      transition: 0.2s;
+
+      &:hover {
+        background: #0b132a;
+        cursor: pointer;
+      }
     }
   }
 }

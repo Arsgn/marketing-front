@@ -3,8 +3,9 @@
   padding-block: 23px;
   position: sticky;
   top: 0;
-  z-index: 10;
+  z-index: 100;
   background: white;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.06);
 
   h2 {
     font-family: "Montserrat", sans-serif;
@@ -16,6 +17,7 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
+    position: relative;
   }
 
   nav {
@@ -25,12 +27,22 @@
     font-size: 16px;
     font-weight: 600;
     justify-content: space-between;
+
+    @media (max-width: 1024px) {
+      width: auto;
+      gap: 20px;
+    }
+
+    @media (max-width: 768px) {
+      display: none;
+    }
+
     a {
       color: #4f5665;
-    }
-    a:hover {
-      color: #23a6f0;
-      transition: 0.2s;
+      &:hover {
+        color: #23a6f0;
+        transition: 0.2s;
+      }
     }
   }
 
@@ -39,6 +51,15 @@
     width: 260px;
     justify-content: space-between;
 
+    @media (max-width: 1024px) {
+      width: auto;
+      gap: 10px;
+    }
+
+    @media (max-width: 768px) {
+      display: none;
+    }
+
     .SignIn {
       background: none;
       color: #23a6f0;
@@ -46,12 +67,13 @@
       font-size: 16px;
       padding-inline: 24px;
       border-radius: 7px;
-    }
-    .SignIn:hover {
-      transition: 0.2s;
-      cursor: pointer;
-      color: #4f5665;
-      background: #dcdcdcc3;
+
+      &:hover {
+        transition: 0.2s;
+        cursor: pointer;
+        color: #4f5665;
+        background: #dcdcdcc3;
+      }
     }
 
     .Join {
@@ -60,40 +82,211 @@
       color: #ffffff;
       font-weight: 700;
       font-size: 16px;
-      padding: 15px 24px 15px 24px;
+      padding: 15px 24px;
+
+      &:hover {
+        transition: 0.2s;
+        cursor: pointer;
+        color: #23a6f0;
+        background: #dcdcdcc3;
+      }
+    }
+  }
+
+  .profile {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+
+    @media (max-width: 768px) {
+      display: none;
     }
 
-    .Join:hover {
-      transition: 0.2s;
+    img {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      object-fit: cover;
       cursor: pointer;
-      color: #23a6f0;
-      background: #dcdcdcc3;
     }
   }
-}
 
-.profile {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-
-  img {
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    object-fit: cover;
+  // Бургер кнопка
+  .burger {
+    display: none;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 28px;
+    height: 20px;
     cursor: pointer;
-  }
-
-  span {
-    font-weight: 600;
-    color: #4f5665;
-  }
-
-  button {
+    z-index: 200;
     background: none;
-    font-weight: 600;
-    color: #23a6f0;
-    cursor: pointer;
+    border: none;
+    padding: 0;
+
+    @media (max-width: 768px) {
+      display: flex;
+    }
+
+    span {
+      display: block;
+      width: 100%;
+      height: 2.5px;
+      background: #4f5665;
+      border-radius: 4px;
+      transition: all 0.3s ease;
+      transform-origin: center;
+    }
+
+    &.open {
+      span:nth-child(1) {
+        transform: translateY(8.75px) rotate(45deg);
+      }
+      span:nth-child(2) {
+        opacity: 0;
+        transform: scaleX(0);
+      }
+      span:nth-child(3) {
+        transform: translateY(-8.75px) rotate(-45deg);
+      }
+    }
+  }
+
+  // Мобильное меню
+  .mobileMenu {
+    display: none;
+
+    @media (max-width: 768px) {
+      display: flex;
+      flex-direction: column;
+      position: fixed;
+      top: 0;
+      right: 0;
+      width: 75%;
+      max-width: 320px;
+      height: 100vh;
+      background: white;
+      z-index: 150;
+      padding: 90px 30px 40px;
+      box-shadow: -4px 0 20px rgba(0, 0, 0, 0.1);
+      transform: translateX(100%);
+      transition: transform 0.35s ease;
+      gap: 4px;
+
+      &.open {
+        transform: translateX(0);
+      }
+
+      a {
+        font-size: 17px;
+        font-weight: 600;
+        color: #4f5665;
+        padding: 14px 0;
+        border-bottom: 1px solid #f0f0f0;
+        transition: color 0.2s;
+
+        &:hover {
+          color: #23a6f0;
+        }
+      }
+    }
+  }
+
+  .mobileButtons {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-top: 24px;
+
+    .SignIn {
+      background: none;
+      color: #23a6f0;
+      font-weight: 700;
+      font-size: 16px;
+      padding: 14px;
+      border-radius: 7px;
+      border: 2px solid #23a6f0;
+      cursor: pointer;
+      transition: 0.2s;
+
+      &:hover {
+        background: #23a6f0;
+        color: white;
+      }
+    }
+
+    .Join {
+      background: #23a6f0;
+      color: white;
+      font-weight: 700;
+      font-size: 16px;
+      padding: 14px;
+      border-radius: 7px;
+      border: none;
+      cursor: pointer;
+      transition: 0.2s;
+
+      &:hover {
+        background: #dcdcdc;
+        color: #23a6f0;
+      }
+    }
+  }
+
+  .mobileProfile {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 14px;
+    margin-top: 24px;
+
+    img {
+      width: 52px;
+      height: 52px;
+      border-radius: 50%;
+      object-fit: cover;
+      cursor: pointer;
+    }
+
+    span {
+      font-weight: 600;
+      font-size: 16px;
+      color: #0b132a;
+    }
+
+    button {
+      background: none;
+      font-weight: 600;
+      font-size: 15px;
+      color: #e74040;
+      cursor: pointer;
+      padding: 0;
+      transition: 0.2s;
+
+      &:hover {
+        opacity: 0.7;
+      }
+    }
+  }
+
+  // Затемнение
+  .overlay {
+    display: none;
+
+    @media (max-width: 768px) {
+      display: block;
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.4);
+      z-index: 140;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.35s ease;
+
+      &.open {
+        opacity: 1;
+        pointer-events: all;
+      }
+    }
   }
 }
