@@ -1,132 +1,282 @@
 .SignInPage {
   display: flex;
   font-family: "Rubik", sans-serif;
+  min-height: 100dvh;
 
-  img {
+  // Левое изображение
+  .sideImage {
     width: 800px;
     height: 100dvh;
     object-fit: cover;
+    flex-shrink: 0;
+
+    @media (max-width: 1024px) {
+      width: 400px;
+    }
+
+    @media (max-width: 768px) {
+      display: none;
+    }
   }
 
-  .Home {
-    display: flex;
-    justify-content: center;
+.Home {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  padding: 20px;
+
+  @media (max-width: 768px) {
+    padding: 20px 24px;
+  }
+
+  @media (max-width: 480px) {
+    padding: 16px 20px;
+    align-items: flex-start;
+  }
+}
+
+.block {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 40px;
+  padding-top: 20px;
+  width: 100%;
+  max-width: 560px;
+
+  @media (max-width: 768px) {
+    gap: 24px;
+    padding-top: 12px;
+  }
+}
+
+.blog {
+  width: 520px;
+
+  @media (max-width: 600px) {
     width: 100%;
   }
 
-  .block {
+  .box {
     display: flex;
     flex-direction: column;
-    align-items: end;
-    gap: 40px;
-    padding-top: 20px;
+    align-items: flex-end;
+
+    input {
+      margin-top: 35px;
+      width: 100%;
+      font-size: 20px;
+      border-bottom: 1.53px solid #000000a6;
+      padding-block: 15px;
+
+      @media (max-width: 480px) {
+        font-size: 16px;
+        margin-top: 24px;
+        padding-block: 10px;
+      }
+    }
   }
 
-  .blog {
-    width: 520px;
+  .Buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+    padding-block: 40px;
+    align-items: center;
 
-    .box {
-      display: flex;
-      flex-direction: column;
-      align-items: end;
+    @media (max-width: 480px) {
+      padding-block: 24px;
+      gap: 18px;
+    }
 
-      input {
-        margin-top: 35px;
-        width: 100%;
-        font-size: 20px;
-        border-bottom: 1.53px solid #000000a6;
-        padding-block: 15px;
+    .signIn {
+      background: #23a6f0;
+      color: white;
+      font-size: 18px;
+      padding: 15px;
+      width: 100%;
+      cursor: pointer;
+      border-radius: 10px;
+
+      @media (max-width: 480px) {
+        font-size: 16px;
+        padding: 13px;
       }
-      a {
-        padding-top: 15px;
-        color: #0000008f;
-      }
-      a:hover {
+
+      &:hover {
         transition: 0.2s;
-        color: #23a6f0;
-      }
-      span{
-        margin-top: -50px;
-        font-size: 20px;
-        padding-block: 20px;
-        padding-inline: 10px;
-        cursor: pointer;
+        color: #00a2ff;
+        background: #e4e4e4;
       }
 
-    }
-
-    .Buttons {
-      display: flex;
-      flex-direction: column;
-      gap: 25px;
-      padding-block: 40px;
-      align-items: center;
-
-      .signIn {
-        background: #23a6f0;
-        color: white;
-        font-size: 18px;
-        padding: 15px;
-        width: 100%;
-        cursor: pointer;
-        border-radius: 10px;
-
-        &:hover {
-          transition: 0.2s;
-          color: #00a2ff;
-          background: #e4e4e4;
-        }
+      &:disabled {
+        opacity: 0.6;
+        cursor: not-allowed;
       }
     }
   }
+}
+
+.home {
+  display: flex;
+  font-size: 45px;
+  background: none;
+  cursor: pointer;
+  border: none;
+  transition: transform 0.3s ease, color 0.3s ease;
+  margin-right: -50px;
+
+  @media (max-width: 768px) {
+    margin-right: 0;
+    font-size: 36px;
+  }
+
+  &:hover {
+    transform: rotate(90deg) scale(1.1);
+    color: #23a6f0;
+  }
+
+  &:active {
+    transform: rotate(90deg) scale(0.95);
+  }
+}
 
   h1 {
     font-size: 40px;
     font-family: "Rubik", sans-serif;
     font-weight: 700;
     text-align: center;
+
+    @media (max-width: 480px) {
+      font-size: 28px;
+    }
   }
 
-  .home {
-    display: flex;
-    font-size: 45px;
-    background: none;
-    margin-right: -50px;
-    cursor: pointer;
-    border: none;
 
-    transition:
-      transform 0.3s ease,
-      color 0.3s ease;
+}
 
-    &:hover {
-      transform: rotate(90deg) scale(1.1);
-      color: #23a6f0;
-    }
+// ── Глаз пароля ───────────────────────────────────
+.password {
+  display: flex;
+  align-items: flex-end;
+  width: 100%;
+  position: relative;
+}
 
-    &:active {
-      transform: rotate(90deg) scale(0.95);
-    }
+.eye {
+  position: absolute;
+  right: 0;
+  bottom: 14px;
+  font-size: 22px;
+  padding-inline: 10px;
+  cursor: pointer;
+  color: black;
+  transition: color 0.2s;
+
+  &:hover {
+    color: #23a6f0;
+  }
+
+  @media (max-width: 480px) {
+    font-size: 18px;
+    bottom: 10px;
   }
 }
 
-.fit{
+.fit {
   color: black;
   cursor: pointer;
+  display: block;
 
-  &:hover{
+  &:hover {
     transition: 0.2s;
     color: #23a6f0;
   }
 }
 
+// ── Забыли пароль ─────────────────────────────────
+.forgot {
+  color: #5c5c5c;
+  font-size: 17px;
+  background: none;
+  cursor: pointer;
+  padding-top: 15px;
+  transition: color 0.2s;
+
+  &:hover {
+    color: #23a6f0;
+  }
+
+  @media (max-width: 480px) {
+    font-size: 14px;
+  }
+}
+
+// ── Регистрация ───────────────────────────────────
+.register {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+
+  p {
+    font-size: 15px;
+    color: #333;
+  }
+
+  button {
+    background: none;
+    color: #00a2ff;
+    font-weight: 500;
+    font-size: 15px;
+    cursor: pointer;
+    transition: color 0.2s;
+
+    &:hover {
+      color: #000;
+    }
+  }
+}
+
+// ── Разделитель ───────────────────────────────────
+.or {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  justify-content: center;
+  font-size: 17px;
+  width: 270px;
+  padding-block: 10px;
+
+  @media (max-width: 480px) {
+    width: 200px;
+    font-size: 14px;
+  }
+
+  .line {
+    height: 1.5px;
+    width: 100px;
+    background: #00c8ff;
+    flex: 1;
+  }
+}
+
+// ── Соц. кнопки ───────────────────────────────────
 .site {
   display: flex;
   justify-content: space-between;
+  gap: 16px;
   width: 100%;
 
+  @media (max-width: 480px) {
+    flex-direction: column;
+    gap: 10px;
+  }
+
   button {
-    width: 238px;
+    flex: 1;
     height: 51px;
     font-size: 17px;
     border-radius: 8px;
@@ -137,6 +287,17 @@
     justify-content: center;
     gap: 10px;
     cursor: pointer;
+    transition: background 0.2s;
+
+    &:hover {
+      background: #f0f9ff;
+    }
+
+    @media (max-width: 480px) {
+      font-size: 15px;
+      height: 46px;
+      width: 100%;
+    }
   }
 }
 
@@ -144,39 +305,18 @@
   color: black;
 }
 
-.register {
-  display: flex;
-  justify-content: center;
-  gap: 10px;
-  button {
-    background: none;
-    color: #00a2ff;
-    font-weight: 500;
-    font-style: 17px;
-  }
-  button:hover {
-    transition: 0.2s;
-    cursor: pointer;
-    color: #000;
-  }
-}
-
-.or {
-  display: flex;
-  align-items: center;
-  gap: 15px;
-  justify-content: space-between;
+// ── Ошибка ────────────────────────────────────────
+.error {
+  color: #e74040;
+  font-size: 14px;
   text-align: center;
-  font-size: 17px;
-  width: 270px;
-  padding-block: 10px;
-  .line {
-    height: 1.5px;
-    width: 100px;
-    background: #00c8ff;
-  }
+  margin-top: 8px;
+  padding: 10px;
+  background: #fff0f0;
+  border-radius: 8px;
 }
 
+// ── Кнопка регистрации (если используется) ────────
 .signUp {
   background: #23a6f0;
   color: white;
@@ -184,29 +324,11 @@
   padding: 15px;
   border-radius: 10px;
   width: 100%;
-}
-
-.signUp:hover {
+  cursor: pointer;
   transition: 0.2s;
-  color: #00a2ff;
-  cursor: pointer;
-  background: #e4e4e4;
-}
 
-.forgot {
-  color: #5c5c5c;
-  font-size: 17px;
-  background: none;
-  cursor: pointer;
-
-  .forgot:hover {
-    transition: 0.2s;
-    color: #23a6f0;
+  &:hover {
+    color: #00a2ff;
+    background: #e4e4e4;
   }
-}
-
-.password {
-  display: flex;
-  align-items: end;
-  width: 100%;
 }

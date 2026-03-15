@@ -1,5 +1,4 @@
 "use client";
-
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import styles from "./SignUpPage.module.scss";
@@ -21,39 +20,25 @@ const SignUpPage = () => {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-
-    if (!agreed) {
-      alert("Согласитесь с условиями использования");
-      return;
-    }
-
+    if (!agreed) { alert("Согласитесь с условиями использования"); return; }
     mutate(
       { email, password, name },
       {
         onSuccess: (res) => {
-          if (!res.success) {
-            alert("Ошибка регистрации");
-            return;
-          }
-
-          // Проверяем наличие session
+          if (!res.success) { alert("Ошибка регистрации"); return; }
           if (!res.data.session) {
             alert("Регистрация успешна! Войдите в систему.");
             router.push("/sign-in");
             return;
           }
-
-          // Сохраняем токены и пользователя
           token.set(res.data.session.access_token);
           token.setRefresh(res.data.session.refresh_token);
           setUser(res.data.user);
-
           alert("Регистрация успешна!");
           router.push("/");
         },
         onError: (e: any) => {
-          const errorMessage = e.response?.data?.error || "Ошибка регистрации";
-          alert(errorMessage);
+          alert(e.response?.data?.error || "Ошибка регистрации");
         },
       }
     );
@@ -76,7 +61,7 @@ const SignUpPage = () => {
             <h1>Регистрация</h1>
 
             {isError && (
-              <p style={{ color: "red", marginBottom: "10px" }}>
+              <p className={styles.error}>
                 {(error as any)?.response?.data?.error || "Ошибка регистрации"}
               </p>
             )}
